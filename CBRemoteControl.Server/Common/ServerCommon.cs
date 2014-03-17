@@ -31,7 +31,7 @@ namespace CBRemoteControl.Server.Common
             this.IsOnline = false;
             this.ServerName = System.Environment.MachineName;
             this.ServerIP = String.Empty;
-            this.ServerID = ServerOpenID.getMNum();
+            this.ServerID = Guid.NewGuid().ToString();
             this.TimeSlice = 60 * 1000;
             this.HeartBeatTime = 5 * 1000;
         }

@@ -98,7 +98,6 @@
             this.MinimizeBox = false;
             this.Name = "Main";
             this.Text = "CBRemoteControl Server";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

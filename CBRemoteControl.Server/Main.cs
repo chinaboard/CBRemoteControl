@@ -75,13 +75,6 @@ namespace CBRemoteControl.Server
                     }
                 });
         }
-
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = !allowClose;
-            this.Hide();
-        }
-
         private void btn_Start_Click(object sender, EventArgs e)
         {
             Task.Factory.StartNew(() => ServerHeartBeat());
@@ -103,7 +96,6 @@ namespace CBRemoteControl.Server
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.allowClose = true;
             Application.Exit();
         }
     }

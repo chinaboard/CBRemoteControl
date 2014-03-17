@@ -53,7 +53,6 @@
   <ItemGroup>
     <Compile Include="Common\InputScreen.cs" />
     <Compile Include="Common\ServerCommon.cs" />
-    <Compile Include="Common\ServerOpenID.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
