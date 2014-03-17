@@ -89,10 +89,14 @@ namespace CBRemoteControl.WinFormClient
             {
                 return;
             }
-            int index = this.listViewMain.SelectedItems[0].SubItems.Count - 1;
-            string serverID = this.listViewMain.SelectedItems[0].SubItems[index].Text;
-            this.nowServerID = serverID;
-            Task.Factory.StartNew(() =>GetScreen(serverID));
+            try
+            {
+                int index = this.listViewMain.SelectedItems[0].SubItems.Count - 1;
+                string serverID = this.listViewMain.SelectedItems[0].SubItems[index].Text;
+                this.nowServerID = serverID;
+                Task.Factory.StartNew(() => GetScreen(serverID));
+            }
+            catch { }
         }
 
         private void btnRefreshList_Click(object sender, EventArgs e)

@@ -73,12 +73,19 @@ namespace CBRemoteControl.Service.Common
         #endregion
 
         #region CacheManage
-        public void CacheTimeOut()
+        public void ServerListTimeOut()
         {
             while (true)
             {
                 Thread.Sleep(30000);
                 this.serverInfoCache.Clear();
+            }
+        }
+        public void ScreenListTimeOut()
+        {
+            while (true)
+            {
+                Thread.Sleep(240000);
                 int nowtime = DateTime.Now.Minute;
                 if (nowtime > 45 && nowtime < 50)
                 {

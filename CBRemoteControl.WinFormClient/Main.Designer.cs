@@ -33,12 +33,12 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainerLeft = new System.Windows.Forms.SplitContainer();
+            this.btnRefreshList = new System.Windows.Forms.Button();
             this.lbCountText = new System.Windows.Forms.Label();
             this.listViewMain = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderIP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnRefreshList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -64,7 +64,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(983, 764);
+            this.pictureBox.Size = new System.Drawing.Size(921, 701);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
@@ -82,8 +82,8 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.pictureBox);
-            this.splitContainerMain.Size = new System.Drawing.Size(1264, 764);
-            this.splitContainerMain.SplitterDistance = 277;
+            this.splitContainerMain.Size = new System.Drawing.Size(1184, 701);
+            this.splitContainerMain.SplitterDistance = 259;
             this.splitContainerMain.TabIndex = 2;
             // 
             // splitContainerLeft
@@ -102,9 +102,20 @@
             // splitContainerLeft.Panel2
             // 
             this.splitContainerLeft.Panel2.Controls.Add(this.listViewMain);
-            this.splitContainerLeft.Size = new System.Drawing.Size(277, 764);
-            this.splitContainerLeft.SplitterDistance = 38;
+            this.splitContainerLeft.Size = new System.Drawing.Size(259, 701);
+            this.splitContainerLeft.SplitterDistance = 34;
             this.splitContainerLeft.TabIndex = 1;
+            // 
+            // btnRefreshList
+            // 
+            this.btnRefreshList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefreshList.Location = new System.Drawing.Point(181, 8);
+            this.btnRefreshList.Name = "btnRefreshList";
+            this.btnRefreshList.Size = new System.Drawing.Size(75, 23);
+            this.btnRefreshList.TabIndex = 2;
+            this.btnRefreshList.Text = "刷新列表";
+            this.btnRefreshList.UseVisualStyleBackColor = true;
+            this.btnRefreshList.Click += new System.EventHandler(this.btnRefreshList_Click);
             // 
             // lbCountText
             // 
@@ -127,7 +138,7 @@
             this.listViewMain.Location = new System.Drawing.Point(0, 0);
             this.listViewMain.MultiSelect = false;
             this.listViewMain.Name = "listViewMain";
-            this.listViewMain.Size = new System.Drawing.Size(277, 722);
+            this.listViewMain.Size = new System.Drawing.Size(259, 663);
             this.listViewMain.TabIndex = 0;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
@@ -148,23 +159,12 @@
             this.columnHeaderID.Text = "ServerID";
             this.columnHeaderID.Width = 97;
             // 
-            // btnRefreshList
-            // 
-            this.btnRefreshList.Location = new System.Drawing.Point(199, 9);
-            this.btnRefreshList.Name = "btnRefreshList";
-            this.btnRefreshList.Size = new System.Drawing.Size(75, 23);
-            this.btnRefreshList.TabIndex = 2;
-            this.btnRefreshList.Text = "刷新列表";
-            this.btnRefreshList.UseVisualStyleBackColor = true;
-            this.btnRefreshList.Click += new System.EventHandler(this.btnRefreshList_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 764);
+            this.ClientSize = new System.Drawing.Size(1184, 701);
             this.Controls.Add(this.splitContainerMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "CBRemoteControl WinFormClient";

@@ -13,7 +13,8 @@ namespace CBRemoteControl.Service
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(() => Caching.Instance.CacheTimeOut());
+            Task.Factory.StartNew(() => Caching.Instance.ServerListTimeOut());
+            Task.Factory.StartNew(() => Caching.Instance.ScreenListTimeOut());
         }
     }
 }
