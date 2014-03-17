@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Service", "CBRemoteControl.Service\CBRemoteControl.Service.csproj", "{60716055-FB93-4113-8730-F7220307BE33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Server", "CBRemoteControl.Server\CBRemoteControl.Server.csproj", "{BCE2E5EF-EB0B-4760-AB7E-627A70C7A13D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Model", "CBRemoteControl.Model\CBRemoteControl.Model.csproj", "{E1BC690A-BA68-4481-AEAD-131D7476DF7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.WinFormClient", "CBRemoteControl.WinFormClient\CBRemoteControl.WinFormClient.csproj", "{2EA1515D-E692-4755-A45B-69BFDE92B815}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60716055-FB93-4113-8730-F7220307BE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60716055-FB93-4113-8730-F7220307BE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60716055-FB93-4113-8730-F7220307BE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60716055-FB93-4113-8730-F7220307BE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCE2E5EF-EB0B-4760-AB7E-627A70C7A13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCE2E5EF-EB0B-4760-AB7E-627A70C7A13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCE2E5EF-EB0B-4760-AB7E-627A70C7A13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCE2E5EF-EB0B-4760-AB7E-627A70C7A13D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1BC690A-BA68-4481-AEAD-131D7476DF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1BC690A-BA68-4481-AEAD-131D7476DF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1BC690A-BA68-4481-AEAD-131D7476DF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1BC690A-BA68-4481-AEAD-131D7476DF7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA1515D-E692-4755-A45B-69BFDE92B815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA1515D-E692-4755-A45B-69BFDE92B815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA1515D-E692-4755-A45B-69BFDE92B815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA1515D-E692-4755-A45B-69BFDE92B815}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

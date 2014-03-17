@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CBRemoteControl.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CBRemoteControl.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ServerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServerID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServerInfo" nillable="true" type="tns:ServerInfo" />
+  <xs:simpleType name="Command">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>
+  <xs:element name="Command" nillable="true" type="tns:Command" />
+  <xs:complexType name="ScreenPackage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PicData" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="ServerID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ScreenPackage" nillable="true" type="tns:ScreenPackage" />
+  <xs:complexType name="ArrayOfServerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerInfo" nillable="true" type="tns:ServerInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfServerInfo" nillable="true" type="tns:ArrayOfServerInfo" />
+</xs:schema>
