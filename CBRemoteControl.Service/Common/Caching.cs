@@ -77,7 +77,7 @@ namespace CBRemoteControl.Service.Common
         {
             while (true)
             {
-                Thread.Sleep(300000);
+                Thread.Sleep(30000);
                 this.serverInfoCache.Clear();
                 int nowtime = DateTime.Now.Minute;
                 if (nowtime > 45 && nowtime < 50)

@@ -44,6 +44,7 @@ namespace CBRemoteControl.Server
                         if (ServerCommon.Instance.IsOnline)
                         {
                             var tmp = InputScreen.GetScreen();
+                            WCFService.Instance.Client.PutScreenCompleted += Client_PutScreenCompleted;
                             WCFService.Instance.Client.PutScreenAsync(tmp);
                             Thread.Sleep(ServerCommon.Instance.TimeSlice);
                         }
@@ -52,6 +53,11 @@ namespace CBRemoteControl.Server
                     catch { }
                 }
             });
+        }
+
+        void Client_PutScreenCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            GC.Collect();
         }
         private void ServerHeartBeat()
         {
