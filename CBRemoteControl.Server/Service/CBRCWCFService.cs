@@ -6,15 +6,15 @@ using System.Text;
 
 namespace CBRemoteControl.Server.Service
 {
-    public class WCFService
+    public class CBRCWCFService
     {
         public ServerServiceClient Client { get; private set; }
-        public static WCFService Instance { get; private set; }
-        static WCFService()
+        public static CBRCWCFService Instance { get; private set; }
+        static CBRCWCFService()
         {
-            Instance = new WCFService();
+            Instance = new CBRCWCFService();
         }
-        WCFService()
+        CBRCWCFService()
         {
             this.Client = new ServerServiceClient();
         }
