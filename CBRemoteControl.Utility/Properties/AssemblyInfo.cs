@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("CBRemoteControl.Service")]
+[assembly: AssemblyTitle("CBRemoteControl.Utility")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CBRemoteControl.Service")]
+[assembly: AssemblyProduct("CBRemoteControl.Utility")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("4fa9c88a-9f00-4a75-990a-698d34796668")]
+[assembly: Guid("10f3ca35-e595-4ab1-8892-c55bad3f15b4")]
 
 // 程序集的版本信息由下面四个值组成: 
 //

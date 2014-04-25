@@ -1,4 +1,5 @@
-CBRemoteControl
+﻿CBRemoteControl
 ===============
 
-基于wcf的远程监控
+远程监控
+以NetMQ为通讯协议
