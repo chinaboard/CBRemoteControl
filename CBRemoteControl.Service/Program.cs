@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace CBRemoteControl.Service
@@ -28,6 +29,7 @@ namespace CBRemoteControl.Service
             {
                 serverSocket.Bind(ConfigManager.Instance.LocalBind);
 
+                X509Certificate2 certificate = new X509Certificate2("NetMQ.Testing.pfx", "1");
                 while (true)
                 {
                     var message = serverSocket.Receive();
