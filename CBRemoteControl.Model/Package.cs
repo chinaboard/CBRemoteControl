@@ -7,16 +7,17 @@ namespace CBRemoteControl.Model
 {
     public class Package
     {
-        public ActionType ActionCode { get; private set; }
-        public string MachineName { get; private set; }
-        public int HeartBeat { get; private set; }
-        public string ServerDomain { get; private set; }
-        public string ServerPort { get; private set; }
-        public string MachineGuid { get; private set; }
-
+        public ActionType ActionCode { get; set; }
+        public int HeartBeat { get; set; }
+        public ServerData ServerInfo { get; set; }
         public Package()
+        { 
+        }
+        public Package(ActionType actionCode,int heartBeat,ServerData serverInfo = null)
         {
-
+            this.ActionCode = actionCode;
+            this.HeartBeat = heartBeat;
+            this.ServerInfo = serverInfo;
         }
     }
 }

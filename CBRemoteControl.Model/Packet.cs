@@ -10,7 +10,7 @@ namespace CBRemoteControl.Model
         //发送的整个包
         private byte[] m_Packet;
         //action码
-        private byte m_code;
+        private ActionType m_code;
         //JSON序列化后字符串
         private string m_jsonStr;
         //JSON序列化后字符串的长度
@@ -25,7 +25,7 @@ namespace CBRemoteControl.Model
         /// <param name="code">action动作码</param>
         /// <param name="jsonStr">JSON序列化后的字符串</param>
         /// <param name="bitmapData">截图的byte数组</param>
-        public Packet(byte code, string jsonStr, byte[] bitmapData)
+        public Packet(ActionType code, string jsonStr, byte[] bitmapData = null)
         {
             this.m_code = code;
             Byte[] head;
@@ -48,7 +48,7 @@ namespace CBRemoteControl.Model
             else
                 head = new byte[1 + 4 + 4 + BjsonData.Length + m_bitmapLength];
 
-            head[0] = code;//action动作码
+            head[0] = (byte)code;//action动作码
             Buffer.BlockCopy(BjsonLength, 0, head, 1, 4);
             Buffer.BlockCopy(BbitmapDataLength, 0, head, 5, 4);
             Buffer.BlockCopy(BjsonData, 0, head, 9, BjsonData.Length);
@@ -65,7 +65,7 @@ namespace CBRemoteControl.Model
         public Packet(byte[] packetData)
         {
             this.m_Packet = packetData;
-            this.m_code = this.m_Packet[0];
+            this.m_code = (ActionType)this.m_Packet[0];
             var b = new Byte[4];//JSON序列化后字符串长度
             Buffer.BlockCopy(this.m_Packet, 1, b, 0, 4);
             this.m_jsonStrLength = (int)(b[0] | b[1] << 8 | b[2] << 16 | b[3] << 24);
@@ -104,7 +104,7 @@ namespace CBRemoteControl.Model
         /// 获取动作指令
         /// </summary>
         /// <returns>指令码</returns>
-        public byte GetAction()
+        public ActionType GetAction()
         {
             return this.m_code;
         }
@@ -120,7 +120,7 @@ namespace CBRemoteControl.Model
         /// 获取封包数据
         /// </summary>
         /// <returns>封包数据</returns>
-        public byte[] GetData()
+        public byte[] GetPacketData()
         {
             return this.m_Packet;
         }

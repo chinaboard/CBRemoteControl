@@ -1,7 +1,9 @@
-﻿using CBRemoteControl.Service.Manager;
+﻿using CBRemoteControl.Model;
+using CBRemoteControl.Service.Manager;
 using NetMQ;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -27,16 +29,12 @@ namespace CBRemoteControl.Service
 
                 while (true)
                 {
-                    string message = serverSocket.ReceiveString();
-
-                    Console.WriteLine("Receive message {0}", message);
-
-                    serverSocket.Send("World");
-
-                    if (message == "exit")
-                    {
-                        break;
-                    }
+                    var message = serverSocket.Receive();
+                    var packet = new Packet(message);
+                    Console.WriteLine("Receive message {0}", packet.GetJsonStr());
+                    Package package  = new Package();
+                    package = Utility.JsonSerialization.Json2Object(packet.GetJsonStr(),package.GetType()) as Package;
+                    serverSocket.Send(String.Format("you are {0}",package.ServerInfo.MachineName));
                 }
             }
         }

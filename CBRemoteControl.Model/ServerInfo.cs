@@ -6,21 +6,15 @@ using System.Text;
 
 namespace CBRemoteControl.Model
 {
-    public class ServerInfo
+    public class ServerData
     {
-        public string ServerName { get; private set; }
-        public string ServerIP { get; private set; }
-        public string ServerID { get; private set; }
-        public void SetServerIP(string serverIP)
-        {
-            this.ServerIP = serverIP;
-        }
+        public string MachineName { get; set; }
+        public string MachineGuid { get; set; }
 
-        public ServerInfo(string serverName, string serverID)
+        public ServerData(string machineName,string machineGuid)
         {
-            this.ServerName = serverName;
-            this.ServerIP = String.Empty;
-            this.ServerID = serverID;
+            this.MachineName = machineName;
+            this.MachineGuid = machineGuid;
         }
     }
 }

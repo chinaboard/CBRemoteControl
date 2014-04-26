@@ -12,9 +12,9 @@ namespace CBRemoteControl.Server.Manager
         public static ConfigManager Instance;
         public string MachineName { get { return this.GetAppConfig("MachineName"); } }
         public int HeartBeat { get { return int.Parse(this.GetAppConfig("HeartBeat")); } }
-        public string ServerDomain { get { return this.GetAppConfig("ServerDomain"); } }
-        public string ServerPort { get { return this.GetAppConfig("ServerPort"); } }
-        public string ServerBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(this.ServerDomain), this.ServerPort); } }
+        public string ServiceDomain { get { return this.GetAppConfig("ServiceDomain"); } }
+        public string ServicePort { get { return this.GetAppConfig("ServicePort"); } }
+        public string ServerBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(this.ServiceDomain), this.ServicePort); } }
         public string MachineGuid
         {
             get

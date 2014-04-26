@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ScreenCommon.cs" />
+    <Compile Include="Manager\CommandManager.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

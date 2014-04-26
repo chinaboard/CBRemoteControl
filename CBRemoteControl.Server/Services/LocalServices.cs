@@ -16,21 +16,15 @@ namespace CBRemoteControl.Server.Services
         {
             Task.Factory.StartNew(() =>
             {
-                while(true)
-                {
-                    ScreenCommon.GetScreen();
-                    Console.WriteLine(ConfigManager.Instance.MachineGuid);
+                Console.WriteLine(ConfigManager.Instance.MachineGuid);
 
-                    Thread.Sleep(5000);
-                    using (NetMQContext context = NetMQContext.Create())
-                    {
-                        Client(context);
-                    }
+                using (NetMQContext context = NetMQContext.Create())
+                {
+                    Client(context);
                 }
-                
             });
         }
-        static void Client(NetMQContext context)
+        private void Client(NetMQContext context)
         {
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
@@ -38,18 +32,10 @@ namespace CBRemoteControl.Server.Services
 
                 while (true)
                 {
-                    Console.WriteLine("Please enter your message:");
-                    string message = "yoooooo" + DateTime.Now;
-                    clientSocket.Send(message);
-
+                    clientSocket.Send(CommandManager.Login().GetPacketData());
                     string answer = clientSocket.ReceiveString();
-
                     Console.WriteLine("Answer from server: {0}", answer);
-
-                    if (message == "exit")
-                    {
-                        break;
-                    }
+                    Thread.Sleep(5000);
                 }
             }
         }
