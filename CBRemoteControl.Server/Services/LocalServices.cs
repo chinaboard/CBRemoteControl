@@ -28,7 +28,7 @@ namespace CBRemoteControl.Server.Services
         {
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
-                clientSocket.Connect(ConfigManager.Instance.ServerBind);
+                clientSocket.Connect(ConfigManager.Instance.ServiceBind);
 
                 while (true)
                 {

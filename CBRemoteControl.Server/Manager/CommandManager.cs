@@ -12,8 +12,7 @@ namespace CBRemoteControl.Server.Manager
         public static byte[] HeartBeat()
         {
             ActionType actionCode = ActionType.SayHeelo;
-            var serverInfo = new ServerData(ConfigManager.Instance.MachineName, ConfigManager.Instance.MachineGuid);
-            var package = new Package(actionCode, ConfigManager.Instance.HeartBeat, serverInfo);
+            var package = new Package(actionCode, ConfigManager.Instance.HeartBeat, ConfigManager.Instance.ServerInfo);
             var jsonStr = JsonSerialization.Object2Json(package);
             var packet = new Packet(actionCode, jsonStr);
             return packet.GetPacketData();

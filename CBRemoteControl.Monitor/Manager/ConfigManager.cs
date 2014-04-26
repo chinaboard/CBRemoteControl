@@ -13,7 +13,7 @@ namespace CBRemoteControl.Monitor.Manager
         public int HeartBeat { get { return int.Parse(this.GetAppConfig("HeartBeat")); } }
         public string ServiceDomain { get { return this.GetAppConfig("ServiceDomain"); } }
         public string ServicePort { get { return this.GetAppConfig("ServicePort"); } }
-        public string ServerBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(this.ServiceDomain), this.ServicePort); } }
+        public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(this.ServiceDomain), this.ServicePort); } }
         static ConfigManager()
         {
             Instance = new ConfigManager();
