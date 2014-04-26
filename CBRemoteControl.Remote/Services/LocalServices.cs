@@ -26,8 +26,8 @@ namespace CBRemoteControl.Remote.Services
         {
             Console.WriteLine(ConfigManager.Instance.MachineGuid);
             _Context = NetMQContext.Create();
-            Client(_Context);
-            //HeartBeat(_Context);
+            //Client(_Context);
+            HeartBeat(_Context);
         }
         public void Stop()
         {
@@ -71,29 +71,16 @@ namespace CBRemoteControl.Remote.Services
         {
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
-                SecureChannel secureChannel = new SecureChannel(ConnectionEnd.Client);
-
-                // we are not using signed certificate so we need to validate the certificate of the server
-                // by default the secure channel is checking that the source of the certitiface is root certificate authority
-                secureChannel.SetVerifyCertificate(c => true);
-
-                List<NetMQMessage> outgoingMessages = new List<NetMQMessage>();
-                // call the process message with null as the incoming message 
-                // because the client is initiating the connection
-
-                secureChannel.ProcessMessage(null, outgoingMessages);
-                if (String.IsNullOrWhiteSpace(ConfigManager.Instance.ServiceBind))
-                {
-                    return;
-                }
-
                 clientSocket.Connect(ConfigManager.Instance.ServiceBind);
                 while (true)
                 {
-                    clientSocket.Send(CommandManager.Init());
-                    var answer = clientSocket.ReceiveMessage();
-                    //answer.
-                    //Thread.Sleep(5000);
+                    NetMQMessage message = new NetMQMessage();
+                    message.Append(CommandManager.Init());
+                    message.Append("test");
+                    clientSocket.SendMessage(message);
+                    var xx = clientSocket.ReceiveMessage();
+                    Console.WriteLine(xx.First.BufferSize);
+                    Thread.Sleep(2000);
                 }
             }
         }

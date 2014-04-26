@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace CBRemoteControl.Service
@@ -29,16 +28,25 @@ namespace CBRemoteControl.Service
             {
                 serverSocket.Bind(ConfigManager.Instance.LocalBind);
 
-                X509Certificate2 certificate = new X509Certificate2("NetMQ.Testing.pfx", "1");
                 while (true)
                 {
-                    var message = serverSocket.Receive();
-                    var packet = new Packet(message);
-                    Console.WriteLine("Receive message {0}", packet.JsonStr);
-                    Package package  = new Package();
-                    package = Utility.JsonSerialization.Json2Object(packet.JsonStr,package.GetType()) as Package;
-                    CommandManager.Init(package);
-                    serverSocket.Send(String.Format("you are {0}",package.RemoteData.MachineName));
+                    var message = serverSocket.ReceiveMessage();
+                    foreach(var x in message)
+                    {
+                        Console.WriteLine(x.ConvertToString());
+                    }
+                    
+                    serverSocket.SendMessage(message);
+
+                    
+                    //var message = serverSocket.Receive();
+                    //var packet = new Packet(message);
+                    //Console.WriteLine("Receive message {0}", packet.JsonStr);
+                    //Package package  = new Package();
+                    //package = Utility.JsonSerialization.Json2Object(packet.JsonStr,package.GetType()) as Package;
+                    //CommandManager.Init(package);
+                    //serverSocket.Send(String.Format("you are {0}",package.RemoteData.MachineName));
+                    
                 }
             }
         }
