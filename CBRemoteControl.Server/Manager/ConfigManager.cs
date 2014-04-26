@@ -10,6 +10,7 @@ namespace CBRemoteControl.Server.Manager
 {
     public class ConfigManager
     {
+        #region 属性
         public static ConfigManager Instance;
         public string MachineName { get { return GetAppConfig("MachineName"); } }
         public int HeartBeat { get { return int.Parse(GetAppConfig("HeartBeat")); } }
@@ -30,11 +31,16 @@ namespace CBRemoteControl.Server.Manager
                 return guid;
             }
         }
+        #endregion
+
+        #region 构造方法
         static ConfigManager()
         {
             Instance = new ConfigManager();
         }
+        #endregion
 
+        #region 私有方法
         private string GetAppConfig(string strKey)
         {
             foreach (string key in ConfigurationManager.AppSettings)
@@ -66,5 +72,6 @@ namespace CBRemoteControl.Server.Manager
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
+        #endregion
     }
 }

@@ -53,6 +53,7 @@ namespace CBRemoteControl.Model
         public byte[] PacketData { get { return _PacketData; } }
         #endregion
 
+        #region 构造方法
         /// <summary>
         /// 构造封包
         /// </summary>
@@ -123,6 +124,6 @@ namespace CBRemoteControl.Model
                 Buffer.BlockCopy(_PacketData, 9 + _JsonStrLength, _BitmapData, 0, _BitmapLength);
             }
         }
-
+        #endregion
     }
 }

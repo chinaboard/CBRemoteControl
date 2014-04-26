@@ -7,9 +7,13 @@ namespace CBRemoteControl.Model
 {
     public class Package
     {
+        #region 属性
         public ActionType ActionCode { get; set; }
         public int HeartBeat { get; set; }
         public ServerData ServerInfo { get; set; }
+        #endregion
+
+        #region 构造方法
         public Package()
         { 
         }
@@ -19,6 +23,6 @@ namespace CBRemoteControl.Model
             HeartBeat = heartBeat;
             ServerInfo = serverInfo;
         }
-
+        #endregion
     }
 }

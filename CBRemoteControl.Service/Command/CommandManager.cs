@@ -11,6 +11,10 @@ namespace CBRemoteControl.Service.Command
     {
         public static void Init(Package package)
         {
+            if(package == null)
+            {
+                return;
+            }
             switch(package.ActionCode)
             {
                 case ActionType.SayHeelo: CommandHeartBeat.Init(package); break;

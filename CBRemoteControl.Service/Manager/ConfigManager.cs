@@ -9,14 +9,21 @@ namespace CBRemoteControl.Service.Manager
 {
     public class ConfigManager
     {
+        #region 字段
         public static ConfigManager Instance;
         public int HeartBeat { get { return int.Parse(GetAppConfig("HeartBeat")); } }
         public string ServicePort { get { return GetAppConfig("ServicePort"); } }
         public string LocalBind { get { return String.Format("tcp://*:{0}", ConfigManager.Instance.ServicePort); } }
+        #endregion
+
+        #region 构造方法
         static ConfigManager()
         {
             Instance = new ConfigManager();
         }
+        #endregion
+
+        #region 私有方法
 
         private string GetAppConfig(string strKey)
         {
@@ -49,5 +56,6 @@ namespace CBRemoteControl.Service.Manager
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
+        #endregion
     }
 }

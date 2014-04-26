@@ -13,36 +13,65 @@ namespace CBRemoteControl.Server.Services
 {
     class LocalServices
     {
+        #region 字段
+        private NetMQContext _Context;
+        private byte[] _NextPecketData;
+        #endregion
+
+        #region 方法
         public void Start()
         {
-            Task.Factory.StartNew(() =>
-            {
-                Console.WriteLine(ConfigManager.Instance.MachineGuid);
-
-                using (NetMQContext context = NetMQContext.Create())
-                {
-                    Client(context);
-                }
-            });
+            Console.WriteLine(ConfigManager.Instance.MachineGuid);
+            _Context = NetMQContext.Create();
+            Client(_Context);
         }
+        public void Stop()
+        {
+            if (_Context != null)
+            {
+                _Context.Dispose();
+            }
+        }
+        #endregion
+
+        #region 私有方法
         private void Client(NetMQContext context)
         {
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
-                clientSocket.Connect(ConfigManager.Instance.ServiceBind);
+                if (String.IsNullOrWhiteSpace(ConfigManager.Instance.ServiceBind))
+                {
+                    return;
+                }
 
+                clientSocket.Connect(ConfigManager.Instance.ServiceBind);
+                _NextPecketData = CommandManager.Init();
                 while (true)
                 {
-                    clientSocket.Send(CommandManager.HeartBeat());
+                    clientSocket.Send(_NextPecketData);
                     string answer = clientSocket.ReceiveString();
                     Console.WriteLine("Answer from server: {0}", answer);
                     Thread.Sleep(5000);
+
+                    //如果拿到的指令无效，就发心跳
+                    if (_NextPecketData == null || _NextPecketData.Length == 0)
+                    {
+                        HeartBeat(clientSocket);
+                    }
                 }
             }
         }
-        public void Stop()
-        {
 
+        private void HeartBeat(NetMQSocket clientSocket)
+        {
+            while (true)
+            {
+                clientSocket.Send(CommandManager.Init());
+                string answer = clientSocket.ReceiveString();
+                Console.WriteLine("Answer from server: {0}", answer);
+                Thread.Sleep(5000);
+            }
         }
+        #endregion
     }
 }
