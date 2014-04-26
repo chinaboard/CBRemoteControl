@@ -32,7 +32,7 @@ namespace CBRemoteControl.Server.Services
 
                 while (true)
                 {
-                    clientSocket.Send(CommandManager.Login().GetPacketData());
+                    clientSocket.Send(CommandManager.HeartBeat());
                     string answer = clientSocket.ReceiveString();
                     Console.WriteLine("Answer from server: {0}", answer);
                     Thread.Sleep(5000);
