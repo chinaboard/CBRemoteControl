@@ -31,9 +31,9 @@ namespace CBRemoteControl.Service
                 {
                     var message = serverSocket.Receive();
                     var packet = new Packet(message);
-                    Console.WriteLine("Receive message {0}", packet.GetJsonStr());
+                    Console.WriteLine("Receive message {0}", packet.JsonStr);
                     Package package  = new Package();
-                    package = Utility.JsonSerialization.Json2Object(packet.GetJsonStr(),package.GetType()) as Package;
+                    package = Utility.JsonSerialization.Json2Object(packet.JsonStr,package.GetType()) as Package;
                     CacheManager.Instance.AddOrUpdateServer(package.ServerInfo);
                     serverSocket.Send(String.Format("you are {0}",package.ServerInfo.MachineName));
                 }

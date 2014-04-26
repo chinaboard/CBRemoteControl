@@ -16,7 +16,7 @@ namespace CBRemoteControl.Server.Command
             var package = new Package(actionCode, ConfigManager.Instance.HeartBeat, ConfigManager.Instance.ServerInfo);
             var jsonStr = JsonSerialization.Object2Json(package);
             var packet = new Packet(actionCode, jsonStr);
-            return packet.GetPacketData();
+            return packet.PacketData;
         }
     }
 }

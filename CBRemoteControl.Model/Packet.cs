@@ -7,18 +7,52 @@ namespace CBRemoteControl.Model
 {
     public class Packet
     {
-        //发送的整个包
+        #region 字段
+        /// <summary>
+        /// 发送的整个包
+        /// </summary>
         private byte[] _PacketData;
-        //action码
+        /// <summary>
+        /// action码
+        /// </summary>
         private ActionType _ActionCode;
-        //JSON序列化后字符串
+        /// <summary>
+        /// JSON序列化后字符串
+        /// </summary>
         private string _JsonStr;
-        //JSON序列化后字符串的长度
+        /// <summary>
+        /// JSON序列化后字符串的长度
+        /// </summary>
         private int _JsonStrLength;
-        //截图byte数组的长度
+        /// <summary>
+        /// 截图byte数组的长度
+        /// </summary>
         private int _BitmapLength;
-        //截图byte数组
+        /// <summary>
+        /// 截图byte数组
+        /// </summary>
         private byte[] _BitmapData;
+        #endregion
+
+        #region 属性
+        /// <summary>
+        /// 获取json指令
+        /// </summary>
+        public string JsonStr { get { return _JsonStr; } }
+        /// <summary>
+        /// 获取动作指令
+        /// </summary>
+        public ActionType ActionCode { get { return _ActionCode; } }
+        /// <summary>
+        /// 获取图片的Byte[]
+        /// </summary>
+        public byte[] BitmapData { get { return _BitmapData; } }
+        /// <summary>
+        /// 获取封包数据
+        /// </summary>
+        public byte[] PacketData { get { return _PacketData; } }
+        #endregion
+
         /// <summary>
         /// 构造封包
         /// </summary>
@@ -90,39 +124,5 @@ namespace CBRemoteControl.Model
             }
         }
 
-
-        /// <summary>
-        /// 获取json指令
-        /// </summary>
-        /// <returns>序列化json</returns>
-        public string GetJsonStr()
-        {
-            return _JsonStr;
-        }
-
-        /// <summary>
-        /// 获取动作指令
-        /// </summary>
-        /// <returns>指令码</returns>
-        public ActionType GetAction()
-        {
-            return _ActionCode;
-        }
-        /// <summary>
-        /// 获取图片的Byte[]
-        /// </summary>
-        /// <returns>字符数组</returns>
-        public byte[] GetBitmapData()
-        {
-            return _BitmapData;
-        }
-        /// <summary>
-        /// 获取封包数据
-        /// </summary>
-        /// <returns>封包数据</returns>
-        public byte[] GetPacketData()
-        {
-            return _PacketData;
-        }
     }
 }
