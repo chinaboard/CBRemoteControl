@@ -22,7 +22,7 @@ namespace CBRemoteControl.Service.Manager
             _cache = new ConcurrentDictionary<string, ServerData>();
             Task.Factory.StartNew(()=>GuardCache());
         }
-        public bool AddOrUpdateServer(ServerData serverInfo)
+        public bool AddOrUpdateServerInfo(ServerData serverInfo)
         {
             if(serverInfo == null)
             {

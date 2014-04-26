@@ -1,4 +1,5 @@
 ﻿using CBRemoteControl.Model;
+using CBRemoteControl.Service.Command;
 using CBRemoteControl.Service.Manager;
 using NetMQ;
 using System;
@@ -34,7 +35,7 @@ namespace CBRemoteControl.Service
                     Console.WriteLine("Receive message {0}", packet.JsonStr);
                     Package package  = new Package();
                     package = Utility.JsonSerialization.Json2Object(packet.JsonStr,package.GetType()) as Package;
-                    CacheManager.Instance.AddOrUpdateServer(package.ServerInfo);
+                    CommandManager.Init(package);
                     serverSocket.Send(String.Format("you are {0}",package.ServerInfo.MachineName));
                 }
             }
