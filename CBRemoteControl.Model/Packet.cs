@@ -8,17 +8,17 @@ namespace CBRemoteControl.Model
     public class Packet
     {
         //发送的整个包
-        private byte[] m_Packet;
+        private byte[] _PacketData;
         //action码
-        private ActionType m_code;
+        private ActionType _ActionCode;
         //JSON序列化后字符串
-        private string m_jsonStr;
+        private string _JsonStr;
         //JSON序列化后字符串的长度
-        private int m_jsonStrLength;
+        private int _JsonStrLength;
         //截图byte数组的长度
-        private int m_bitmapLength;
+        private int _BitmapLength;
         //截图byte数组
-        private byte[] m_bitmapData;
+        private byte[] _BitmapData;
         /// <summary>
         /// 构造封包
         /// </summary>
@@ -27,35 +27,35 @@ namespace CBRemoteControl.Model
         /// <param name="bitmapData">截图的byte数组</param>
         public Packet(ActionType code, string jsonStr, byte[] bitmapData = null)
         {
-            this.m_code = code;
+            _ActionCode = code;
             Byte[] head;
             if (bitmapData == null)
-                m_bitmapLength = 0;
+                _BitmapLength = 0;
             else
-                m_bitmapLength = bitmapData.Length;
+                _BitmapLength = bitmapData.Length;
 
             if (jsonStr == null)
-                jsonStr = "";
+                _JsonStr = String.Empty;
             else
-                this.m_jsonStr = jsonStr;
+                _JsonStr = jsonStr;
             var BjsonData = Encoding.UTF8.GetBytes(jsonStr);
             var BjsonLength = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(BjsonData.Length));
-            var BbitmapDataLength = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(m_bitmapLength));
+            var BbitmapDataLength = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(_BitmapLength));
             //action1 json4 data4 jsondatax datax
 
             if (bitmapData == null)
                 head = new byte[1 + 4 + 4 + BjsonData.Length];
             else
-                head = new byte[1 + 4 + 4 + BjsonData.Length + m_bitmapLength];
+                head = new byte[1 + 4 + 4 + BjsonData.Length + _BitmapLength];
 
             head[0] = (byte)code;//action动作码
             Buffer.BlockCopy(BjsonLength, 0, head, 1, 4);
             Buffer.BlockCopy(BbitmapDataLength, 0, head, 5, 4);
             Buffer.BlockCopy(BjsonData, 0, head, 9, BjsonData.Length);
             if (bitmapData != null)
-                Buffer.BlockCopy(bitmapData, 0, head, BjsonData.Length + 9, m_bitmapLength);
+                Buffer.BlockCopy(bitmapData, 0, head, BjsonData.Length + 9, _BitmapLength);
 
-            m_Packet = head;
+            _PacketData = head;
         }
 
         /// <summary>
@@ -64,29 +64,29 @@ namespace CBRemoteControl.Model
         /// <param name="packetData">自定义包</param>
         public Packet(byte[] packetData)
         {
-            this.m_Packet = packetData;
-            this.m_code = (ActionType)this.m_Packet[0];
+            _PacketData = packetData;
+            _ActionCode = (ActionType)_PacketData[0];
             var b = new Byte[4];//JSON序列化后字符串长度
-            Buffer.BlockCopy(this.m_Packet, 1, b, 0, 4);
-            this.m_jsonStrLength = (int)(b[0] | b[1] << 8 | b[2] << 16 | b[3] << 24);
-            this.m_jsonStrLength = System.Net.IPAddress.NetworkToHostOrder(this.m_jsonStrLength);//转为本机
+            Buffer.BlockCopy(_PacketData, 1, b, 0, 4);
+            _JsonStrLength = (int)(b[0] | b[1] << 8 | b[2] << 16 | b[3] << 24);
+            _JsonStrLength = System.Net.IPAddress.NetworkToHostOrder(_JsonStrLength);//转为本机
 
             b = new Byte[4];//截图byte[]的长度
-            Buffer.BlockCopy(this.m_Packet, 5, b, 0, 4);
+            Buffer.BlockCopy(_PacketData, 5, b, 0, 4);
 
             //MSDN:为了适用于使用不同字节排序方式的计算机，通过网络发送的所有整数值都按网络字节顺序发送，其中最高有效字节第一个发送
-            this.m_bitmapLength = (int)(b[0] | b[1] << 8 | b[2] << 16 | b[3] << 24);
-            this.m_bitmapLength = System.Net.IPAddress.NetworkToHostOrder(this.m_bitmapLength);//转为本机
+            _BitmapLength = (int)(b[0] | b[1] << 8 | b[2] << 16 | b[3] << 24);
+            _BitmapLength = System.Net.IPAddress.NetworkToHostOrder(_BitmapLength);//转为本机
 
 
-            var jsonByte = new byte[this.m_jsonStrLength];
-            Buffer.BlockCopy(m_Packet, 9, jsonByte, 0, this.m_jsonStrLength);
-            this.m_jsonStr = System.Text.Encoding.UTF8.GetString(jsonByte);
+            var jsonByte = new byte[_JsonStrLength];
+            Buffer.BlockCopy(_PacketData, 9, jsonByte, 0, _JsonStrLength);
+            _JsonStr = System.Text.Encoding.UTF8.GetString(jsonByte);
 
-            if (this.m_bitmapLength != 0)
+            if (_BitmapLength != 0)
             {
-                m_bitmapData = new byte[this.m_bitmapLength];
-                Buffer.BlockCopy(m_Packet, 9 + this.m_jsonStrLength, m_bitmapData, 0, this.m_bitmapLength);
+                _BitmapData = new byte[_BitmapLength];
+                Buffer.BlockCopy(_PacketData, 9 + _JsonStrLength, _BitmapData, 0, _BitmapLength);
             }
         }
 
@@ -97,7 +97,7 @@ namespace CBRemoteControl.Model
         /// <returns>序列化json</returns>
         public string GetJsonStr()
         {
-            return this.m_jsonStr;
+            return _JsonStr;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace CBRemoteControl.Model
         /// <returns>指令码</returns>
         public ActionType GetAction()
         {
-            return this.m_code;
+            return _ActionCode;
         }
         /// <summary>
         /// 获取图片的Byte[]
@@ -114,7 +114,7 @@ namespace CBRemoteControl.Model
         /// <returns>字符数组</returns>
         public byte[] GetBitmapData()
         {
-            return this.m_bitmapData;
+            return _BitmapData;
         }
         /// <summary>
         /// 获取封包数据
@@ -122,7 +122,7 @@ namespace CBRemoteControl.Model
         /// <returns>封包数据</returns>
         public byte[] GetPacketData()
         {
-            return this.m_Packet;
+            return _PacketData;
         }
     }
 }

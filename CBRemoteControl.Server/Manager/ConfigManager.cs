@@ -11,21 +11,21 @@ namespace CBRemoteControl.Server.Manager
     public class ConfigManager
     {
         public static ConfigManager Instance;
-        public string MachineName { get { return this.GetAppConfig("MachineName"); } }
-        public int HeartBeat { get { return int.Parse(this.GetAppConfig("HeartBeat")); } }
-        public string ServiceDomain { get { return this.GetAppConfig("ServiceDomain"); } }
-        public string ServicePort { get { return this.GetAppConfig("ServicePort"); } }
-        public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(this.ServiceDomain), this.ServicePort); } }
-        public ServerData ServerInfo { get { return new ServerData(this.MachineName, this.MachineGuid); } }
+        public string MachineName { get { return GetAppConfig("MachineName"); } }
+        public int HeartBeat { get { return int.Parse(GetAppConfig("HeartBeat")); } }
+        public string ServiceDomain { get { return GetAppConfig("ServiceDomain"); } }
+        public string ServicePort { get { return GetAppConfig("ServicePort"); } }
+        public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort); } }
+        public ServerData ServerInfo { get { return new ServerData(MachineName, MachineGuid); } }
         public string MachineGuid
         {
             get
             {
-                var guid = this.GetAppConfig("MachineGuid");
+                var guid = GetAppConfig("MachineGuid");
                 if (String.IsNullOrWhiteSpace(guid))
                 {
                     guid = Guid.NewGuid().ToString();
-                    this.UpdateAppConfig("MachineGuid", guid);
+                    UpdateAppConfig("MachineGuid", guid);
                 }
                 return guid;
             }

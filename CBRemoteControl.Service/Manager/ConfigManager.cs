@@ -10,8 +10,8 @@ namespace CBRemoteControl.Service.Manager
     public class ConfigManager
     {
         public static ConfigManager Instance;
-        public int HeartBeat { get { return int.Parse(this.GetAppConfig("HeartBeat")); } }
-        public string ServicePort { get { return this.GetAppConfig("ServicePort"); } }
+        public int HeartBeat { get { return int.Parse(GetAppConfig("HeartBeat")); } }
+        public string ServicePort { get { return GetAppConfig("ServicePort"); } }
         public string LocalBind { get { return String.Format("tcp://*:{0}", ConfigManager.Instance.ServicePort); } }
         static ConfigManager()
         {

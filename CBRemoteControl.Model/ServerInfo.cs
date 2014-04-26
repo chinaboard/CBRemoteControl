@@ -11,14 +11,19 @@ namespace CBRemoteControl.Model
         public string MachineName { get; set; }
         public string MachineGuid { get; set; }
         public byte[] ScreenData { get; private set; }
+        public DateTime AliveTime { get; private set; }
         public ServerData(string machineName,string machineGuid)
         {
-            this.MachineName = machineName;
-            this.MachineGuid = machineGuid;
+            MachineName = machineName;
+            MachineGuid = machineGuid;
         }
         public void SetScreen(byte[] screenData)
         {
-            this.ScreenData = screenData;
+            ScreenData = screenData;
+        }
+        public void SetAliveTime()
+        {
+            AliveTime = DateTime.Now;
         }
     }
 }

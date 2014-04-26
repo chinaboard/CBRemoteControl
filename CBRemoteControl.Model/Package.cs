@@ -15,9 +15,9 @@ namespace CBRemoteControl.Model
         }
         public Package(ActionType actionCode,int heartBeat,ServerData serverInfo = null)
         {
-            this.ActionCode = actionCode;
-            this.HeartBeat = heartBeat;
-            this.ServerInfo = serverInfo;
+            ActionCode = actionCode;
+            HeartBeat = heartBeat;
+            ServerInfo = serverInfo;
         }
 
     }
