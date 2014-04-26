@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace CBRemoteControl.Server.Manager
+namespace CBRemoteControl.Remote.Manager
 {
     public class ConfigManager
     {
@@ -17,7 +17,7 @@ namespace CBRemoteControl.Server.Manager
         public string ServiceDomain { get { return GetAppConfig("ServiceDomain"); } }
         public string ServicePort { get { return GetAppConfig("ServicePort"); } }
         public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort); } }
-        public ServerData ServerInfo { get { return new ServerData(MachineName, MachineGuid); } }
+        public RemoteInfo RemoteData { get { return new RemoteInfo(MachineName, MachineGuid); } }
         public string MachineGuid
         {
             get
@@ -52,7 +52,6 @@ namespace CBRemoteControl.Server.Manager
             }
             return null;
         }
-
         private void UpdateAppConfig(string newKey, string newValue)
         {
             bool isModified = false;

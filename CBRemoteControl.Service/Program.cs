@@ -36,7 +36,7 @@ namespace CBRemoteControl.Service
                     Package package  = new Package();
                     package = Utility.JsonSerialization.Json2Object(packet.JsonStr,package.GetType()) as Package;
                     CommandManager.Init(package);
-                    serverSocket.Send(String.Format("you are {0}",package.ServerInfo.MachineName));
+                    serverSocket.Send(String.Format("you are {0}",package.RemoteData.MachineName));
                 }
             }
         }

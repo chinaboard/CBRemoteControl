@@ -1,4 +1,4 @@
-﻿using CBRemoteControl.Server.Services;
+﻿using CBRemoteControl.Remote.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Topshelf;
 
-namespace CBRemoteControl.Server
+namespace CBRemoteControl.Remote
 {
     class Program
     {
@@ -22,8 +22,8 @@ namespace CBRemoteControl.Server
                 });
 
                 x.SetDescription("CBRemoteControl被控服务器端");
-                x.SetDisplayName("CBRemoteControl.Server");
-                x.SetServiceName("CBRemoteControl.Server");
+                x.SetDisplayName("CBRemoteControl.Remote");
+                x.SetServiceName("CBRemoteControl.Remote");
 
                 x.RunAsLocalSystem();
                 x.EnableShutdown();

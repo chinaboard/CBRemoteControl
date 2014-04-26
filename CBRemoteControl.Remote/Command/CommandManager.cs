@@ -1,12 +1,12 @@
 ﻿using CBRemoteControl.Model;
-using CBRemoteControl.Server.Manager;
+using CBRemoteControl.Remote.Manager;
 using CBRemoteControl.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CBRemoteControl.Server.Command
+namespace CBRemoteControl.Remote.Command
 {
     class CommandManager
     {

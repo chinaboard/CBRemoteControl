@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CBRemoteControl.Model
 {
-    public class ServerData
+    public class RemoteInfo
     {
         #region 属性
         public string MachineName { get; set; }
@@ -16,7 +16,7 @@ namespace CBRemoteControl.Model
         #endregion
 
         #region 构造方法
-        public ServerData(string machineName,string machineGuid)
+        public RemoteInfo(string machineName,string machineGuid)
         {
             MachineName = machineName;
             MachineGuid = machineGuid;

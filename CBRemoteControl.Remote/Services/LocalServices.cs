@@ -1,6 +1,6 @@
-﻿using CBRemoteControl.Server.Command;
-using CBRemoteControl.Server.Common;
-using CBRemoteControl.Server.Manager;
+﻿using CBRemoteControl.Remote.Command;
+using CBRemoteControl.Remote.Common;
+using CBRemoteControl.Remote.Manager;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CBRemoteControl.Server.Services
+namespace CBRemoteControl.Remote.Services
 {
     class LocalServices
     {

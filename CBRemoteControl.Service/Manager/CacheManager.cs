@@ -12,7 +12,7 @@ namespace CBRemoteControl.Service.Manager
     class CacheManager
     {
         #region 字段
-        private ConcurrentDictionary<string, ServerData> _ServerInfoCache;
+        private ConcurrentDictionary<string, RemoteInfo> _RemoteInfoCache;
         #endregion
 
         #region 属性
@@ -26,30 +26,30 @@ namespace CBRemoteControl.Service.Manager
         }
         CacheManager()
         {
-            _ServerInfoCache = new ConcurrentDictionary<string, ServerData>();
+            _RemoteInfoCache = new ConcurrentDictionary<string, RemoteInfo>();
             Task.Factory.StartNew(()=>GuardCache());
         }
         #endregion
 
         #region 方法
-        public bool AddOrUpdateServerInfo(ServerData serverInfo)
+        public bool AddOrUpdateRemoteInfo(RemoteInfo remoteData)
         {
-            if(serverInfo == null)
+            if(remoteData == null)
             {
                 return false;
             }
-            serverInfo.SetAliveTime();
-            _ServerInfoCache[serverInfo.MachineGuid] = serverInfo;
+            remoteData.SetAliveTime();
+            _RemoteInfoCache[remoteData.MachineGuid] = remoteData;
             return true;
         }
-        public List<ServerData> GetServerList()
+        public List<RemoteInfo> GetServerList()
         {
-            return _ServerInfoCache.Values.ToList();
+            return _RemoteInfoCache.Values.ToList();
         }
-        public ServerData GetServerInfo(string serverGuid)
+        public RemoteInfo GetServerInfo(string remoteGuid)
         {
-            ServerData value;
-            _ServerInfoCache.TryGetValue(serverGuid, out value);
+            RemoteInfo value;
+            _RemoteInfoCache.TryGetValue(remoteGuid, out value);
             return value;
         }
         #endregion
@@ -59,13 +59,13 @@ namespace CBRemoteControl.Service.Manager
         {
             while(true)
             {
-                var list = _ServerInfoCache.Values.ToList();
-                foreach(var sinfo in list)
+                var list = _RemoteInfoCache.Values.ToList();
+                foreach(var rData in list)
                 {
-                    if (DateTime.Now.Subtract(sinfo.AliveTime).TotalMinutes > 1)
+                    if (DateTime.Now.Subtract(rData.AliveTime).TotalMinutes > 1)
                     {
-                        ServerData temp;
-                        _ServerInfoCache.TryRemove(sinfo.MachineGuid, out temp);
+                        RemoteInfo temp;
+                        _RemoteInfoCache.TryRemove(rData.MachineGuid, out temp);
                     }
                 }
                 Thread.Sleep(1000);

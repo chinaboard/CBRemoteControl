@@ -11,7 +11,7 @@ namespace CBRemoteControl.Service.Command
     {
         public static void Init(Package package)
         {
-            CacheManager.Instance.AddOrUpdateServerInfo(package.ServerInfo);
+            CacheManager.Instance.AddOrUpdateRemoteInfo(package.RemoteData);
         }
     }
 }

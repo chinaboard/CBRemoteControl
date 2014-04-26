@@ -24,7 +24,6 @@ namespace CBRemoteControl.Service.Manager
         #endregion
 
         #region 私有方法
-
         private string GetAppConfig(string strKey)
         {
             foreach (string key in ConfigurationManager.AppSettings)
@@ -36,7 +35,6 @@ namespace CBRemoteControl.Service.Manager
             }
             return null;
         }
-
         private void UpdateAppConfig(string newKey, string newValue)
         {
             bool isModified = false;

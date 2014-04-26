@@ -7,8 +7,8 @@
     <ProjectGuid>{59CBADA4-B674-4FD6-A751-1E8C8B5CE32C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CBRemoteControl.Server</RootNamespace>
-    <AssemblyName>CBRemoteControl.Server</AssemblyName>
+    <RootNamespace>CBRemoteControl.Remote</RootNamespace>
+    <AssemblyName>CBRemoteControl.Remote</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -54,6 +54,7 @@
     <Compile Include="Command\CommandHeartBeat.cs" />
     <Compile Include="Common\ScreenCommon.cs" />
     <Compile Include="Command\CommandManager.cs" />
+    <Compile Include="Manager\CacheManager.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

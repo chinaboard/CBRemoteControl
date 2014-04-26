@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBRemoteControl.Server.Manager
+namespace CBRemoteControl.Remote.Manager
 {
     class CacheManager
     {
