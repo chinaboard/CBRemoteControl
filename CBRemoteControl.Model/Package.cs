@@ -19,5 +19,6 @@ namespace CBRemoteControl.Model
             this.HeartBeat = heartBeat;
             this.ServerInfo = serverInfo;
         }
+
     }
 }
