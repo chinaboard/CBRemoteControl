@@ -32,16 +32,16 @@
             this.splitListContainer = new System.Windows.Forms.SplitContainer();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.listView = new System.Windows.Forms.ListView();
-            this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitInfoContainer = new System.Windows.Forms.SplitContainer();
-            this.labAlive = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.labGuid = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.labName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupPicBox = new System.Windows.Forms.GroupBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listView = new System.Windows.Forms.ListView();
+            this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -54,7 +54,9 @@
             this.splitInfoContainer.Panel1.SuspendLayout();
             this.splitInfoContainer.Panel2.SuspendLayout();
             this.splitInfoContainer.SuspendLayout();
+            this.groupPicBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -76,7 +78,6 @@
             // 
             // splitListContainer
             // 
-            this.splitListContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitListContainer.Location = new System.Drawing.Point(0, 0);
             this.splitListContainer.Name = "splitListContainer";
             this.splitListContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -88,8 +89,8 @@
             // 
             // splitListContainer.Panel2
             // 
-            this.splitListContainer.Panel2.Controls.Add(this.listView);
-            this.splitListContainer.Size = new System.Drawing.Size(188, 460);
+            this.splitListContainer.Panel2.Controls.Add(this.groupBox1);
+            this.splitListContainer.Size = new System.Drawing.Size(190, 460);
             this.splitListContainer.SplitterDistance = 52;
             this.splitListContainer.TabIndex = 5;
             // 
@@ -113,26 +114,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // listView
-            // 
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader});
-            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView.FullRowSelect = true;
-            this.listView.GridLines = true;
-            this.listView.Location = new System.Drawing.Point(0, 0);
-            this.listView.MultiSelect = false;
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(188, 404);
-            this.listView.TabIndex = 0;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader
-            // 
-            this.columnHeader.Text = "Machine Name";
-            this.columnHeader.Width = 180;
-            // 
             // splitInfoContainer
             // 
             this.splitInfoContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -142,8 +123,6 @@
             // 
             // splitInfoContainer.Panel1
             // 
-            this.splitInfoContainer.Panel1.Controls.Add(this.labAlive);
-            this.splitInfoContainer.Panel1.Controls.Add(this.label6);
             this.splitInfoContainer.Panel1.Controls.Add(this.labGuid);
             this.splitInfoContainer.Panel1.Controls.Add(this.label4);
             this.splitInfoContainer.Panel1.Controls.Add(this.labName);
@@ -151,28 +130,10 @@
             // 
             // splitInfoContainer.Panel2
             // 
-            this.splitInfoContainer.Panel2.Controls.Add(this.pictureBox);
+            this.splitInfoContainer.Panel2.Controls.Add(this.groupPicBox);
             this.splitInfoContainer.Size = new System.Drawing.Size(620, 460);
             this.splitInfoContainer.SplitterDistance = 52;
             this.splitInfoContainer.TabIndex = 0;
-            // 
-            // labAlive
-            // 
-            this.labAlive.AutoSize = true;
-            this.labAlive.Location = new System.Drawing.Point(241, 9);
-            this.labAlive.Name = "labAlive";
-            this.labAlive.Size = new System.Drawing.Size(41, 12);
-            this.labAlive.TabIndex = 6;
-            this.labAlive.Text = "label3";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(200, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Alive:";
             // 
             // labGuid
             // 
@@ -210,14 +171,58 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name:";
             // 
+            // groupPicBox
+            // 
+            this.groupPicBox.Controls.Add(this.pictureBox);
+            this.groupPicBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupPicBox.Location = new System.Drawing.Point(0, 0);
+            this.groupPicBox.Name = "groupPicBox";
+            this.groupPicBox.Size = new System.Drawing.Size(620, 404);
+            this.groupPicBox.TabIndex = 1;
+            this.groupPicBox.TabStop = false;
+            this.groupPicBox.Text = "groupBox1";
+            // 
             // pictureBox
             // 
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Location = new System.Drawing.Point(3, 17);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(620, 404);
-            this.pictureBox.TabIndex = 0;
+            this.pictureBox.Size = new System.Drawing.Size(614, 384);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listView);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(190, 404);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // listView
+            // 
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader});
+            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.FullRowSelect = true;
+            this.listView.GridLines = true;
+            this.listView.Location = new System.Drawing.Point(3, 17);
+            this.listView.MultiSelect = false;
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(184, 384);
+            this.listView.TabIndex = 1;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.DoubleClick += new System.EventHandler(this.listView_DoubleClick);
+            // 
+            // columnHeader
+            // 
+            this.columnHeader.Text = "Machine Name";
+            this.columnHeader.Width = 180;
             // 
             // Main
             // 
@@ -227,6 +232,7 @@
             this.Controls.Add(this.splitContainer);
             this.Name = "Main";
             this.Text = "CBRemoteControl Monitor";
+            this.Resize += new System.EventHandler(this.Main_Resize);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -240,7 +246,9 @@
             this.splitInfoContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitInfoContainer)).EndInit();
             this.splitInfoContainer.ResumeLayout(false);
+            this.groupPicBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -249,17 +257,17 @@
 
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.SplitContainer splitInfoContainer;
-        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.SplitContainer splitListContainer;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.Label labAlive;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labGuid;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupPicBox;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.ColumnHeader columnHeader;
     }
 }
