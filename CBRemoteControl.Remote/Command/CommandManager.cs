@@ -1,6 +1,7 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Remote.Manager;
 using CBRemoteControl.Utility;
+using NetMQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace CBRemoteControl.Remote.Command
 {
     class CommandManager
     {
-        public static byte[] Init(Package package = null)
+        public static NetMQMessage Init(Package package = null)
         {
             if (package == null)
             {

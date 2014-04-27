@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NetMQ">
+      <HintPath>..\packages\NetMQ.3.3.0.8\lib\net40\NetMQ.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,9 +43,17 @@
   <ItemGroup>
     <Compile Include="ActionType.cs" />
     <Compile Include="Package.cs" />
-    <Compile Include="Packet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CBRemoteControl.Utility\CBRemoteControl.Utility.csproj">
+      <Project>{153dbecb-25a7-4a49-bf06-4a2d6e0a898a}</Project>
+      <Name>CBRemoteControl.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

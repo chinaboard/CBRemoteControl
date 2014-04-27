@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace CBRemoteControl.Service.Manager
+namespace CBRemoteControl.Server.Manager
 {
     public class ConfigManager
     {

@@ -1,6 +1,7 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Remote.Manager;
 using CBRemoteControl.Utility;
+using NetMQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,11 @@ namespace CBRemoteControl.Remote.Command
 {
     class CommandHeartBeat
     {
-        public static byte[] Init()
+        public static NetMQMessage Init()
         {
             ActionType actionCode = ActionType.SayHeelo;
-            var package = new Package(actionCode, ConfigManager.Instance.HeartBeat, ConfigManager.Instance.RemoteData);
-            var jsonStr = JsonSerialization.Object2Json(package);
-            var packet = new Packet(actionCode, jsonStr);
-            return packet.PacketData;
+            var package = new Package(actionCode, ConfigManager.Instance.RemoteData);
+            return package.Message;
         }
     }
 }

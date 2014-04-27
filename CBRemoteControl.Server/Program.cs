@@ -1,7 +1,7 @@
-﻿using CBRemoteControl.Remote.Services;
+﻿using CBRemoteControl.Server.Services;
 using Topshelf;
 
-namespace CBRemoteControl.Remote
+namespace CBRemoteControl.Server
 {
     class Program
     {
@@ -9,16 +9,16 @@ namespace CBRemoteControl.Remote
         {
             HostFactory.Run(x =>
             {
-                x.Service<RemoteServices>(c =>
+                x.Service<ServerServices>(c =>
                 {
-                    c.ConstructUsing(() => new RemoteServices());
+                    c.ConstructUsing(() => new ServerServices());
                     c.WhenStarted(d => d.Start());
                     c.WhenStopped(d => d.Stop());
                 });
 
-                x.SetDescription("CBRemoteControl被控端");
-                x.SetDisplayName("CBRemoteControl.Remote");
-                x.SetServiceName("CBRemoteControl.Remote");
+                x.SetDescription("CBRemoteControl服务器端");
+                x.SetDisplayName("CBRemoteControl.Server");
+                x.SetServiceName("CBRemoteControl.Server");
 
                 x.RunAsLocalSystem();
                 x.EnableShutdown();

@@ -58,7 +58,7 @@
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\LocalServices.cs" />
+    <Compile Include="Services\RemoteServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

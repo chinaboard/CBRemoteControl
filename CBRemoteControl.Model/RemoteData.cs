@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using CBRemoteControl.Utility;
+using System;
 
 namespace CBRemoteControl.Model
 {
@@ -31,6 +28,10 @@ namespace CBRemoteControl.Model
         public void SetAliveTime()
         {
             AliveTime = DateTime.Now;
+        }
+        public override string ToString()
+        {
+            return JsonSerialization.Object2Json(this);
         }
         #endregion
     }

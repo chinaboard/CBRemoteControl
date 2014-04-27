@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Remote", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Model", "CBRemoteControl.Model\CBRemoteControl.Model.csproj", "{E1BC690A-BA68-4481-AEAD-131D7476DF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Service", "CBRemoteControl.Service\CBRemoteControl.Service.csproj", "{5FD3C7E5-64D0-4749-BBC9-CA7F4BDAF98E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Server", "CBRemoteControl.Server\CBRemoteControl.Server.csproj", "{5FD3C7E5-64D0-4749-BBC9-CA7F4BDAF98E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBRemoteControl.Utility", "CBRemoteControl.Utility\CBRemoteControl.Utility.csproj", "{153DBECB-25A7-4A49-BF06-4A2D6E0A898A}"
 EndProject

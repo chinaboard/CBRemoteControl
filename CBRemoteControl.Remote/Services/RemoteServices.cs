@@ -1,24 +1,17 @@
-﻿using CBRemoteControl.Model;
-using CBRemoteControl.Remote.Command;
-using CBRemoteControl.Remote.Common;
+﻿using CBRemoteControl.Remote.Command;
 using CBRemoteControl.Remote.Manager;
 using NetMQ;
-using NetMQ.Security.V0_1;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace CBRemoteControl.Remote.Services
 {
-    class LocalServices
+    class RemoteServices
     {
         #region 字段
         private NetMQContext _Context;
-        private byte[] _NextPecketData;
+        private NetMQMessage _NextMessage;
+        private bool _ContextIsOpend;
         #endregion
 
         #region 方法
@@ -26,6 +19,7 @@ namespace CBRemoteControl.Remote.Services
         {
             Console.WriteLine(ConfigManager.Instance.MachineGuid);
             _Context = NetMQContext.Create();
+            _ContextIsOpend = true;
             //Client(_Context);
             HeartBeat(_Context);
         }
@@ -33,7 +27,8 @@ namespace CBRemoteControl.Remote.Services
         {
             if (_Context != null)
             {
-                _Context.Dispose();
+                _ContextIsOpend = false;
+                _Context.Terminate();
             }
         }
         #endregion
@@ -49,19 +44,19 @@ namespace CBRemoteControl.Remote.Services
                 }
 
                 clientSocket.Connect(ConfigManager.Instance.ServiceBind);
-                _NextPecketData = CommandManager.Init();
+                _NextMessage = CommandManager.Init();
 
                 while (true)
                 {
-                    clientSocket.Send(_NextPecketData);
+                    clientSocket.SendMessage(_NextMessage);
                     string answer = clientSocket.ReceiveString();
                     Console.WriteLine("Answer from server: {0}", answer);
                     Thread.Sleep(5000);
 
                     //如果拿到的指令无效，就发心跳
-                    if (_NextPecketData == null || _NextPecketData.Length == 0)
+                    if (_NextMessage == null || _NextMessage.IsEmpty)
                     {
-                        _NextPecketData = CommandManager.Init();
+                        _NextMessage = CommandManager.Init();
                     }
                 }
             }
@@ -69,18 +64,31 @@ namespace CBRemoteControl.Remote.Services
 
         private void HeartBeat(NetMQContext context)
         {
+            
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
                 clientSocket.Connect(ConfigManager.Instance.ServiceBind);
                 while (true)
                 {
-                    NetMQMessage message = new NetMQMessage();
-                    message.Append(CommandManager.Init());
-                    message.Append("test");
-                    clientSocket.SendMessage(message);
-                    var xx = clientSocket.ReceiveMessage();
-                    Console.WriteLine(xx.First.BufferSize);
-                    Thread.Sleep(2000);
+                    if (!_ContextIsOpend)
+                    {
+                        Thread.Sleep(10000);
+                        continue;
+                    }
+
+                    NetMQMessage message = CommandManager.Init();
+                    try
+                    {
+                        clientSocket.SendMessage(message);
+                        var xx = clientSocket.ReceiveMessage();
+                        Console.WriteLine(xx.First.BufferSize);
+                        Thread.Sleep(2000);
+                    }
+                    catch(NetMQ.TerminatingException tx)
+                    {
+                        Console.WriteLine(tx.ToString());
+                    }
+                    
                 }
             }
         }
