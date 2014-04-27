@@ -10,46 +10,27 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CBRemoteControl.Monitor
 {
     public partial class Main : Form
     {
-        private static string test;
+        #region 字段
+        public static string _NowSelectGuid;
+        #endregion
         public Main()
         {
-
             InitializeComponent();
-            this.splitContainer.SplitterDistance = 190;
-            this.splitListContainer.SplitterDistance = 52;
-            this.splitInfoContainer.SplitterDistance = 52;
             MonitorServices.Start();
+            Task.Factory.StartNew(() => AutoRefresh());
         }
-
+        #region 事件
         private void btnRefreshList_Click(object sender, EventArgs e)
         {
-            var xx = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
-            var xlist = JsonSerialization.Json2Object(xx.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
-            if (xlist != null && xlist.Count > 0)
-            {
-                this.listView.Items.Clear();
-                Dictionary<string, int> machineNameDict = new Dictionary<string, int>();
-                foreach (var x in xlist)
-                {
-                    if (!machineNameDict.ContainsKey(x.MachineName))
-                        machineNameDict[x.MachineName] = -1;
-                    var c = (from p in xlist where p.MachineName.Equals(x.MachineName) select p.MachineName).ToList();
-                    if (c.Count > 1)
-                        machineNameDict[x.MachineName]++;
-                    ListViewItem lvi = new ListViewItem();
-                    var tmp = new RemoteInfo(x.MachineGuid,x.MachineName);
-                    tmp.MachineName = x.MachineName + (machineNameDict[x.MachineName] > 0 ? "(" + machineNameDict[x.MachineName] + ")" : String.Empty);
-                    lvi.SubItems[0].Text = tmp.MachineName;
-                    lvi.Tag = tmp;
-                    this.listView.Items.Add(lvi);
-                }
-            }
+            Task.Factory.StartNew(() => RefreshList());
         }
         private void listView_DoubleClick(object sender, EventArgs e)
         {
@@ -68,7 +49,55 @@ namespace CBRemoteControl.Monitor
             {
             }
         }
+        private void Main_Resize(object sender, EventArgs e)
+        {
+            this.splitContainer.SplitterDistance = 190;
+            this.splitListContainer.SplitterDistance = 52;
+            this.splitInfoContainer.SplitterDistance = 52;
+        }
 
+        #endregion
+
+        #region 私有方法
+
+        private void AutoRefresh()
+        {
+            while (true)
+            {
+                RefreshList();
+                Thread.Sleep(5000);
+            }
+        }
+        private void RefreshList()
+        {
+            var inMessage = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
+            var remoteInfoList = JsonSerialization.Json2Object(inMessage.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
+            if (remoteInfoList != null && remoteInfoList.Count > 0)
+            {
+                this.Invoke(new Action(() =>
+                {
+                    if (this.listView.SelectedItems.Count != 0)
+                        _NowSelectGuid = (this.listView.SelectedItems[0].Tag as RemoteInfo).MachineGuid;
+                }));
+                this.Invoke(new Action(() => this.listView.Items.Clear()));
+                Dictionary<string, int> machineNameDict = new Dictionary<string, int>();
+                foreach (var remoteInfo in remoteInfoList)
+                {
+                    if (!machineNameDict.ContainsKey(remoteInfo.MachineName))
+                        machineNameDict[remoteInfo.MachineName] = -1;
+                    if ((from p in remoteInfoList where p.MachineName.Equals(remoteInfo.MachineName) select p.MachineName).ToList().Count > 1)
+                        machineNameDict[remoteInfo.MachineName]++;
+                    ListViewItem lvi = new ListViewItem();
+                    var tmp = new RemoteInfo(remoteInfo.MachineGuid, remoteInfo.MachineName);
+                    tmp.MachineName = remoteInfo.MachineName + (machineNameDict[remoteInfo.MachineName] > 0 ? "(" + machineNameDict[remoteInfo.MachineName] + ")" : String.Empty);
+                    lvi.SubItems[0].Text = tmp.MachineName;
+                    lvi.Tag = tmp;
+                    if (tmp.MachineGuid.Equals(_NowSelectGuid))
+                        lvi.Selected = true;
+                    this.Invoke(new Action(() => this.listView.Items.Add(lvi)));
+                }
+            }
+        }
         private void SetRemoteInfo(RemoteInfo remoteData)
         {
             this.groupPicBox.Text = "Alive Time : " + remoteData.AliveTime.ToString();
@@ -83,12 +112,6 @@ namespace CBRemoteControl.Monitor
             var bmp = BitmapCommon.Byte2Bitmap(bitmapData);
             this.pictureBox.Image = bmp;
         }
-
-        private void Main_Resize(object sender, EventArgs e)
-        {
-            this.splitContainer.SplitterDistance = 190;
-            this.splitListContainer.SplitterDistance = 52;
-            this.splitInfoContainer.SplitterDistance = 52;
-        }
+        #endregion
     }
 }
