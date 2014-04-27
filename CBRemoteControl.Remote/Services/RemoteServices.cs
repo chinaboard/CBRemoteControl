@@ -64,18 +64,11 @@ namespace CBRemoteControl.Remote.Services
 
         private void HeartBeat(NetMQContext context)
         {
-            
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
                 clientSocket.Connect(ConfigManager.Instance.ServiceBind);
                 while (true)
                 {
-                    if (!_ContextIsOpend)
-                    {
-                        Thread.Sleep(10000);
-                        continue;
-                    }
-
                     NetMQMessage message = CommandManager.Init();
                     try
                     {
@@ -84,11 +77,11 @@ namespace CBRemoteControl.Remote.Services
                         Console.WriteLine(xx.First.BufferSize);
                         Thread.Sleep(2000);
                     }
-                    catch(NetMQ.TerminatingException tx)
+                    catch
                     {
-                        Console.WriteLine(tx.ToString());
+                        if (!_ContextIsOpend)
+                            return;
                     }
-                    
                 }
             }
         }

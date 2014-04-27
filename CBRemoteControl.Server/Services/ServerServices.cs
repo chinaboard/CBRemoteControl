@@ -41,17 +41,21 @@ namespace CBRemoteControl.Server.Services
 
                 while (true)
                 {
-                    if(!_ContextIsOpend)
+                    try
                     {
-                        return;
-                    }
-                    var message = serverSocket.ReceiveMessage();
-                    foreach (var x in message)
-                    {
-                        Console.WriteLine(x.ConvertToString());
-                    }
+                        var message = serverSocket.ReceiveMessage();
+                        foreach (var x in message)
+                        {
+                            Console.WriteLine(x.ConvertToString());
+                        }
 
-                    serverSocket.SendMessage(message);
+                        serverSocket.SendMessage(message);
+                    }
+                    catch
+                    {
+                        if(!_ContextIsOpend)
+                            return;
+                    }
 
 
                     //var message = serverSocket.Receive();
