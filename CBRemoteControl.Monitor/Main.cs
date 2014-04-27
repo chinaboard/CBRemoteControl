@@ -1,5 +1,6 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Monitor.Services;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,12 @@ namespace CBRemoteControl.Monitor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MonitorServices.MonitorSocket.SendMessage(new Package(ActionType.GetRemoteList).Message);
-            var xx = MonitorServices.MonitorSocket.ReceiveMessage();
-            MessageBox.Show(new Package(xx).ActionCode.ToString());
+            var xx = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
+            var xlist = JsonSerialization.Json2Object(xx.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
+            foreach(var x in xlist)
+            {
+                this.textBox1.Text += x.MachineGuid + Environment.NewLine;
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ namespace CBRemoteControl.Server.Command
                         outMessage = new Package(ActionType.GetRemoteInfo, remoteInfo).Message;
                     break;
                 case ActionType.GetRemoteList:
+                    outMessage = new NetMQMessage();
                     outMessage.Append(Enum.GetName(typeof(ActionType), ActionType.GetRemoteList));
                     outMessage.Append(JsonSerialization.Object2Json(CacheManager.Instance.GetRemoteList()));
                     break;
