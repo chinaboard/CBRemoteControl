@@ -20,9 +20,12 @@ namespace CBRemoteControl.Remote.Command
             var package = new Package(message);
             switch (package.ActionCode)
             {
-                case ActionType.SayHeelo: return CommandHeartBeat.Init();
+                case ActionType.SayHeelo: 
+                    return CommandHeartBeat.Init();
+                default:
+                    CacheManager.Instance.AddCommand(message);
+                    return CommandHeartBeat.Init();
             }
-            return CommandHeartBeat.Init();
         }
 
     }

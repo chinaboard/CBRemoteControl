@@ -46,11 +46,10 @@ namespace CBRemoteControl.Remote.Services
                     {
                         
                         clientSocket.SendMessage(message);
+
                         var receive = clientSocket.ReceiveMessage();
 
                         message = CommandManager.Init(receive);
-
-                        CacheManager.Instance.AddCommand(receive);
 
                         Thread.Sleep(2000);
                     }
