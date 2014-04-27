@@ -1,4 +1,5 @@
 ﻿using CBRemoteControl.Model;
+using CBRemoteControl.Server.Command;
 using CBRemoteControl.Server.Manager;
 using NetMQ;
 using System;
@@ -45,11 +46,8 @@ namespace CBRemoteControl.Server.Services
                     try
                     {
                         var receive = serverSocket.ReceiveMessage();
-                        foreach (var x in receive)
-                        {
-                            Console.WriteLine(x.ConvertToString());
-                        }
-                        var message = new Package(ActionType.SayHeelo).Message;
+
+                        var message = CommandManager.Init(receive);
                         serverSocket.SendMessage(message);
                     }
                     catch

@@ -39,6 +39,10 @@ namespace CBRemoteControl.Server.Manager
                 return false;
             }
             remoteData.SetAliveTime();
+            if (!_RemoteInfoCache.ContainsKey(remoteData.MachineGuid))
+                Console.WriteLine(String.Format("{0} : New Remote {1}", DateTime.Now, remoteData.MachineGuid));
+            else
+                Console.WriteLine(String.Format("{0} : Old Remote {1}", DateTime.Now, remoteData.MachineGuid));
             _RemoteInfoCache[remoteData.MachineGuid] = remoteData;
             return true;
         }
