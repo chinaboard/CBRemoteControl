@@ -1,4 +1,5 @@
 ﻿using CBRemoteControl.Model;
+using CBRemoteControl.Monitor.Common;
 using CBRemoteControl.Monitor.Services;
 using CBRemoteControl.Utility;
 using NetMQ;
@@ -15,6 +16,7 @@ namespace CBRemoteControl.Monitor
 {
     public partial class Main : Form
     {
+        private static string test;
         public Main()
         {
             InitializeComponent();
@@ -25,10 +27,20 @@ namespace CBRemoteControl.Monitor
         {
             var xx = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
             var xlist = JsonSerialization.Json2Object(xx.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
-            foreach(var x in xlist)
+            foreach (var x in xlist)
             {
                 this.textBox1.Text += x.MachineGuid + Environment.NewLine;
+                test = x.MachineGuid;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var xx = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, new RemoteInfo("xxx", test)).Message);
+
+            var x = BitmapCommon.Byte2Bitmap(new Package(xx).RemoteData.ScreenData);
+            if (x != null)
+                this.pictureBox1.Image = x;
         }
     }
 }

@@ -39,9 +39,9 @@ namespace CBRemoteControl.Remote.Services
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
                 clientSocket.Connect(ConfigManager.Instance.ServiceBind);
+                NetMQMessage message = CommandManager.Init();
                 while (true)
                 {
-                    NetMQMessage message = CommandManager.Init();
                     try
                     {
                         clientSocket.SendMessage(message);

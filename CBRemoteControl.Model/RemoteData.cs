@@ -8,7 +8,7 @@ namespace CBRemoteControl.Model
         #region 属性
         public string MachineName { get; set; }
         public string MachineGuid { get; set; }
-        public byte[] ScreenData { get; private set; }
+        public byte[] ScreenData { get; set; }
         public DateTime AliveTime { get; private set; }
         #endregion
 

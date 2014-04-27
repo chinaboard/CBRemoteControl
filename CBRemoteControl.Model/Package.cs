@@ -23,7 +23,7 @@ namespace CBRemoteControl.Model
                 return;
             _Message = message;
             ActionCode = (ActionType)Enum.Parse(typeof(ActionType), message.First.ConvertToString());
-            if (message.FrameCount > 1 && (ActionCode & ActionType.SayHello) == ActionType.SayHello)
+            if (message.FrameCount > 1 )
                 RemoteData = JsonSerialization.Json2Object(message[1].ConvertToString(), typeof(RemoteInfo)) as RemoteInfo;
         }
         public Package(ActionType actionCode, RemoteInfo remoteData = null)

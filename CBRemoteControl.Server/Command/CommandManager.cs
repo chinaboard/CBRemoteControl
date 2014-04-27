@@ -22,11 +22,19 @@ namespace CBRemoteControl.Server.Command
             {
                 return CommandHeartBeat.Init(package);
             }
+
+            //要求被控端更新截屏
+            //if ((package.ActionCode & ActionType.TransPic) == ActionType.TransPic)
+            //{
+            //    return CommandHeartBeat.Init(package);
+            //}
+
             //有关远程机器
             if ((package.ActionCode & ActionType.GetRemote) == ActionType.GetRemote)
             {
                 return CommandRemoteInfo.Init(package);
             }
+
             return new Package(ActionType.ServerSayHell0).Message;
         }
     }

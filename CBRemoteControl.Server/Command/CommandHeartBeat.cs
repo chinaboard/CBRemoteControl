@@ -13,7 +13,7 @@ namespace CBRemoteControl.Server.Command
         public static NetMQMessage Init(Package package)
         {
             CacheManager.Instance.AddOrUpdateRemoteInfo(package.RemoteData);
-            return new Package(ActionType.ServerSayHell0).Message;
+            return new Package(ActionType.TransPic).Message;
         }
     }
 }

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\CommandHeartBeat.cs" />
+    <Compile Include="Command\CommandTransPic.cs" />
     <Compile Include="Common\ScreenCommon.cs" />
     <Compile Include="Command\CommandManager.cs" />
     <Compile Include="Manager\CacheManager.cs" />

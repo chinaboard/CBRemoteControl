@@ -28,6 +28,12 @@ namespace CBRemoteControl.Remote.Command
                 return CommandHeartBeat.Init();
             }
 
+            //扔截屏
+            if((package.ActionCode & ActionType.TransPic) == ActionType.TransPic)
+            {
+                return CommandTransPic.Init();
+            }
+
             //无动于衷
             
             return CommandHeartBeat.Init();
