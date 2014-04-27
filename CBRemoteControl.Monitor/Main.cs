@@ -19,7 +19,7 @@ namespace CBRemoteControl.Monitor
     public partial class Main : Form
     {
         #region 字段
-        public static string _NowSelectGuid;
+        public static RemoteInfo _NowSelected;
         #endregion
         public Main()
         {
@@ -41,8 +41,6 @@ namespace CBRemoteControl.Monitor
             try
             {
                 var info = this.listView.SelectedItems[0].Tag as RemoteInfo;
-                var receive = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, info).Message);
-                info = new Package(receive).RemoteData;
                 SetRemoteInfo(info);
             }
             catch
@@ -65,6 +63,7 @@ namespace CBRemoteControl.Monitor
             while (true)
             {
                 RefreshList();
+                RefreshScreen();
                 Thread.Sleep(5000);
             }
         }
@@ -77,7 +76,7 @@ namespace CBRemoteControl.Monitor
                 this.Invoke(new Action(() =>
                 {
                     if (this.listView.SelectedItems.Count != 0)
-                        _NowSelectGuid = (this.listView.SelectedItems[0].Tag as RemoteInfo).MachineGuid;
+                        _NowSelected = this.listView.SelectedItems[0].Tag as RemoteInfo;
                 }));
                 this.Invoke(new Action(() => this.listView.Items.Clear()));
                 Dictionary<string, int> machineNameDict = new Dictionary<string, int>();
@@ -92,18 +91,30 @@ namespace CBRemoteControl.Monitor
                     tmp.MachineName = remoteInfo.MachineName + (machineNameDict[remoteInfo.MachineName] > 0 ? "(" + machineNameDict[remoteInfo.MachineName] + ")" : String.Empty);
                     lvi.SubItems[0].Text = tmp.MachineName;
                     lvi.Tag = tmp;
-                    if (tmp.MachineGuid.Equals(_NowSelectGuid))
+                    if (tmp.MachineGuid.Equals(_NowSelected))
                         lvi.Selected = true;
                     this.Invoke(new Action(() => this.listView.Items.Add(lvi)));
                 }
             }
         }
+        private void RefreshScreen()
+        {
+            if (_NowSelected != null)
+            {
+                SetRemoteInfo(_NowSelected);
+            }
+        }
         private void SetRemoteInfo(RemoteInfo remoteData)
         {
-            this.groupPicBox.Text = "Alive Time : " + remoteData.AliveTime.ToString();
-            this.labGuid.Text = remoteData.MachineGuid;
-            this.labName.Text = remoteData.MachineName;
-            SetPictureBox(remoteData.ScreenData);
+            var receive = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, remoteData).Message);
+            remoteData = new Package(receive).RemoteData;
+            this.Invoke(new Action(() =>
+                {
+                    this.groupPicBox.Text = "Alive Time : " + remoteData.AliveTime.ToString();
+                    this.labGuid.Text = remoteData.MachineGuid;
+                    this.labName.Text = remoteData.MachineName;
+                    SetPictureBox(remoteData.ScreenData);
+                }));
         }
         private void SetPictureBox(byte[] bitmapData)
         {
