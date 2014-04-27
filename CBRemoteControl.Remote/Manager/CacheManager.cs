@@ -14,6 +14,7 @@ namespace CBRemoteControl.Remote.Manager
 
         #region 属性
         public static CacheManager Instance;
+        public int CommandCount { get { return _CommandQueue.Count; } }
         #endregion
 
         #region 构造方法

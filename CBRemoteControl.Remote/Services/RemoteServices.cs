@@ -1,8 +1,10 @@
-﻿using CBRemoteControl.Remote.Command;
+﻿using CBRemoteControl.Model;
+using CBRemoteControl.Remote.Command;
 using CBRemoteControl.Remote.Manager;
 using NetMQ;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace CBRemoteControl.Remote.Services
 {
@@ -17,11 +19,9 @@ namespace CBRemoteControl.Remote.Services
         #region 方法
         public void Start()
         {
-            Console.WriteLine(ConfigManager.Instance.MachineGuid);
             _Context = NetMQContext.Create();
             _ContextIsOpend = true;
-            //Client(_Context);
-            HeartBeat(_Context);
+            Client(_Context);
         }
         public void Stop()
         {
@@ -38,42 +38,17 @@ namespace CBRemoteControl.Remote.Services
         {
             using (NetMQSocket clientSocket = context.CreateRequestSocket())
             {
-                if (String.IsNullOrWhiteSpace(ConfigManager.Instance.ServiceBind))
-                {
-                    return;
-                }
-
-                clientSocket.Connect(ConfigManager.Instance.ServiceBind);
-                _NextMessage = CommandManager.Init();
-
-                while (true)
-                {
-                    clientSocket.SendMessage(_NextMessage);
-                    string answer = clientSocket.ReceiveString();
-                    Console.WriteLine("Answer from server: {0}", answer);
-                    Thread.Sleep(5000);
-
-                    //如果拿到的指令无效，就发心跳
-                    if (_NextMessage == null || _NextMessage.IsEmpty)
-                    {
-                        _NextMessage = CommandManager.Init();
-                    }
-                }
-            }
-        }
-
-        private void HeartBeat(NetMQContext context)
-        {
-            using (NetMQSocket clientSocket = context.CreateRequestSocket())
-            {
                 clientSocket.Connect(ConfigManager.Instance.ServiceBind);
                 while (true)
                 {
                     NetMQMessage message = CommandManager.Init();
                     try
                     {
+                        
                         clientSocket.SendMessage(message);
                         var receive = clientSocket.ReceiveMessage();
+
+                        message = CommandManager.Init(receive);
 
                         CacheManager.Instance.AddCommand(receive);
 
