@@ -30,18 +30,19 @@
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.splitListContainer = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.groupFunctionBox = new System.Windows.Forms.GroupBox();
+            this.btnRefreshList = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listView = new System.Windows.Forms.ListView();
+            this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitInfoContainer = new System.Windows.Forms.SplitContainer();
+            this.groupInfoBox = new System.Windows.Forms.GroupBox();
             this.labGuid = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.labName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupPicBox = new System.Windows.Forms.GroupBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listView = new System.Windows.Forms.ListView();
-            this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -50,13 +51,15 @@
             this.splitListContainer.Panel1.SuspendLayout();
             this.splitListContainer.Panel2.SuspendLayout();
             this.splitListContainer.SuspendLayout();
+            this.groupFunctionBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitInfoContainer)).BeginInit();
             this.splitInfoContainer.Panel1.SuspendLayout();
             this.splitInfoContainer.Panel2.SuspendLayout();
             this.splitInfoContainer.SuspendLayout();
+            this.groupInfoBox.SuspendLayout();
             this.groupPicBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -84,8 +87,7 @@
             // 
             // splitListContainer.Panel1
             // 
-            this.splitListContainer.Panel1.Controls.Add(this.button1);
-            this.splitListContainer.Panel1.Controls.Add(this.button2);
+            this.splitListContainer.Panel1.Controls.Add(this.groupFunctionBox);
             // 
             // splitListContainer.Panel2
             // 
@@ -94,103 +96,26 @@
             this.splitListContainer.SplitterDistance = 52;
             this.splitListContainer.TabIndex = 5;
             // 
-            // button1
+            // groupFunctionBox
             // 
-            this.button1.Location = new System.Drawing.Point(3, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.groupFunctionBox.Controls.Add(this.btnRefreshList);
+            this.groupFunctionBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupFunctionBox.Location = new System.Drawing.Point(0, 0);
+            this.groupFunctionBox.Name = "groupFunctionBox";
+            this.groupFunctionBox.Size = new System.Drawing.Size(190, 52);
+            this.groupFunctionBox.TabIndex = 0;
+            this.groupFunctionBox.TabStop = false;
+            this.groupFunctionBox.Text = "Function";
             // 
-            // button2
+            // btnRefreshList
             // 
-            this.button2.Location = new System.Drawing.Point(111, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // splitInfoContainer
-            // 
-            this.splitInfoContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitInfoContainer.Location = new System.Drawing.Point(0, 0);
-            this.splitInfoContainer.Name = "splitInfoContainer";
-            this.splitInfoContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitInfoContainer.Panel1
-            // 
-            this.splitInfoContainer.Panel1.Controls.Add(this.labGuid);
-            this.splitInfoContainer.Panel1.Controls.Add(this.label4);
-            this.splitInfoContainer.Panel1.Controls.Add(this.labName);
-            this.splitInfoContainer.Panel1.Controls.Add(this.label1);
-            // 
-            // splitInfoContainer.Panel2
-            // 
-            this.splitInfoContainer.Panel2.Controls.Add(this.groupPicBox);
-            this.splitInfoContainer.Size = new System.Drawing.Size(620, 460);
-            this.splitInfoContainer.SplitterDistance = 52;
-            this.splitInfoContainer.TabIndex = 0;
-            // 
-            // labGuid
-            // 
-            this.labGuid.AutoSize = true;
-            this.labGuid.Location = new System.Drawing.Point(55, 33);
-            this.labGuid.Name = "labGuid";
-            this.labGuid.Size = new System.Drawing.Size(41, 12);
-            this.labGuid.TabIndex = 4;
-            this.labGuid.Text = "label5";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 33);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 12);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Guid:";
-            // 
-            // labName
-            // 
-            this.labName.AutoSize = true;
-            this.labName.Location = new System.Drawing.Point(55, 9);
-            this.labName.Name = "labName";
-            this.labName.Size = new System.Drawing.Size(41, 12);
-            this.labName.TabIndex = 1;
-            this.labName.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name:";
-            // 
-            // groupPicBox
-            // 
-            this.groupPicBox.Controls.Add(this.pictureBox);
-            this.groupPicBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupPicBox.Location = new System.Drawing.Point(0, 0);
-            this.groupPicBox.Name = "groupPicBox";
-            this.groupPicBox.Size = new System.Drawing.Size(620, 404);
-            this.groupPicBox.TabIndex = 1;
-            this.groupPicBox.TabStop = false;
-            this.groupPicBox.Text = "groupBox1";
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Location = new System.Drawing.Point(3, 17);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(614, 384);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox.TabIndex = 1;
-            this.pictureBox.TabStop = false;
+            this.btnRefreshList.Location = new System.Drawing.Point(12, 20);
+            this.btnRefreshList.Name = "btnRefreshList";
+            this.btnRefreshList.Size = new System.Drawing.Size(75, 23);
+            this.btnRefreshList.TabIndex = 5;
+            this.btnRefreshList.Text = "Refresh";
+            this.btnRefreshList.UseVisualStyleBackColor = true;
+            this.btnRefreshList.Click += new System.EventHandler(this.btnRefreshList_Click);
             // 
             // groupBox1
             // 
@@ -201,7 +126,7 @@
             this.groupBox1.Size = new System.Drawing.Size(190, 404);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Machine List";
             // 
             // listView
             // 
@@ -224,6 +149,95 @@
             this.columnHeader.Text = "Machine Name";
             this.columnHeader.Width = 180;
             // 
+            // splitInfoContainer
+            // 
+            this.splitInfoContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitInfoContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitInfoContainer.Name = "splitInfoContainer";
+            this.splitInfoContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitInfoContainer.Panel1
+            // 
+            this.splitInfoContainer.Panel1.Controls.Add(this.groupInfoBox);
+            // 
+            // splitInfoContainer.Panel2
+            // 
+            this.splitInfoContainer.Panel2.Controls.Add(this.groupPicBox);
+            this.splitInfoContainer.Size = new System.Drawing.Size(620, 460);
+            this.splitInfoContainer.SplitterDistance = 52;
+            this.splitInfoContainer.TabIndex = 0;
+            // 
+            // groupInfoBox
+            // 
+            this.groupInfoBox.Controls.Add(this.labGuid);
+            this.groupInfoBox.Controls.Add(this.label4);
+            this.groupInfoBox.Controls.Add(this.labName);
+            this.groupInfoBox.Controls.Add(this.label1);
+            this.groupInfoBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupInfoBox.Location = new System.Drawing.Point(0, 0);
+            this.groupInfoBox.Name = "groupInfoBox";
+            this.groupInfoBox.Size = new System.Drawing.Size(620, 52);
+            this.groupInfoBox.TabIndex = 0;
+            this.groupInfoBox.TabStop = false;
+            this.groupInfoBox.Text = "Machine Info";
+            // 
+            // labGuid
+            // 
+            this.labGuid.AutoSize = true;
+            this.labGuid.Location = new System.Drawing.Point(245, 25);
+            this.labGuid.Name = "labGuid";
+            this.labGuid.Size = new System.Drawing.Size(29, 12);
+            this.labGuid.TabIndex = 8;
+            this.labGuid.Text = "    ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(204, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Guid :";
+            // 
+            // labName
+            // 
+            this.labName.AutoSize = true;
+            this.labName.Location = new System.Drawing.Point(47, 25);
+            this.labName.Name = "labName";
+            this.labName.Size = new System.Drawing.Size(29, 12);
+            this.labName.TabIndex = 6;
+            this.labName.Text = "    ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Name :";
+            // 
+            // groupPicBox
+            // 
+            this.groupPicBox.Controls.Add(this.pictureBox);
+            this.groupPicBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupPicBox.Location = new System.Drawing.Point(0, 0);
+            this.groupPicBox.Name = "groupPicBox";
+            this.groupPicBox.Size = new System.Drawing.Size(620, 404);
+            this.groupPicBox.TabIndex = 1;
+            this.groupPicBox.TabStop = false;
+            this.groupPicBox.Text = "Alive Time";
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(3, 17);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(614, 384);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox.TabIndex = 1;
+            this.pictureBox.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -241,14 +255,16 @@
             this.splitListContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitListContainer)).EndInit();
             this.splitListContainer.ResumeLayout(false);
+            this.groupFunctionBox.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.splitInfoContainer.Panel1.ResumeLayout(false);
-            this.splitInfoContainer.Panel1.PerformLayout();
             this.splitInfoContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitInfoContainer)).EndInit();
             this.splitInfoContainer.ResumeLayout(false);
+            this.groupInfoBox.ResumeLayout(false);
+            this.groupInfoBox.PerformLayout();
             this.groupPicBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -258,17 +274,18 @@
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.SplitContainer splitInfoContainer;
         private System.Windows.Forms.SplitContainer splitListContainer;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label labGuid;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label labName;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupPicBox;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.ColumnHeader columnHeader;
+        private System.Windows.Forms.GroupBox groupFunctionBox;
+        private System.Windows.Forms.Button btnRefreshList;
+        private System.Windows.Forms.GroupBox groupInfoBox;
+        private System.Windows.Forms.Label labGuid;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labName;
+        private System.Windows.Forms.Label label1;
     }
 }
 

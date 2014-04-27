@@ -19,7 +19,7 @@ namespace CBRemoteControl.Monitor
         private static string test;
         public Main()
         {
-            
+
             InitializeComponent();
             this.splitContainer.SplitterDistance = 190;
             this.splitListContainer.SplitterDistance = 52;
@@ -27,32 +27,30 @@ namespace CBRemoteControl.Monitor
             MonitorServices.Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRefreshList_Click(object sender, EventArgs e)
         {
             var xx = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
             var xlist = JsonSerialization.Json2Object(xx.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
-            if(xlist!=null && xlist.Count > 0)    
+            if (xlist != null && xlist.Count > 0)
             {
                 this.listView.Items.Clear();
+                Dictionary<string, int> machineNameDict = new Dictionary<string, int>();
                 foreach (var x in xlist)
                 {
+                    if (!machineNameDict.ContainsKey(x.MachineName))
+                        machineNameDict[x.MachineName] = -1;
+                    var c = (from p in xlist where p.MachineName.Equals(x.MachineName) select p.MachineName).ToList();
+                    if (c.Count > 1)
+                        machineNameDict[x.MachineName]++;
                     ListViewItem lvi = new ListViewItem();
-                    lvi.SubItems[0].Text = x.MachineName;
-                    lvi.Tag = x;
+                    var tmp = new RemoteInfo(x.MachineGuid,x.MachineName);
+                    tmp.MachineName = x.MachineName + (machineNameDict[x.MachineName] > 0 ? "(" + machineNameDict[x.MachineName] + ")" : String.Empty);
+                    lvi.SubItems[0].Text = tmp.MachineName;
+                    lvi.Tag = tmp;
                     this.listView.Items.Add(lvi);
                 }
             }
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            var xx = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, new RemoteInfo(test, "xxx")).Message);
-
-            var x = BitmapCommon.Byte2Bitmap(new Package(xx).RemoteData.ScreenData);
-            if (x != null)
-                this.pictureBox.Image = x;
-        }
-
         private void listView_DoubleClick(object sender, EventArgs e)
         {
             if (this.listView.SelectedItems.Count == 0)
@@ -66,8 +64,8 @@ namespace CBRemoteControl.Monitor
                 info = new Package(receive).RemoteData;
                 SetRemoteInfo(info);
             }
-            catch 
-            { 
+            catch
+            {
             }
         }
 
