@@ -9,14 +9,17 @@ namespace CBRemoteControl.Model
         public string MachineName { get; set; }
         public string MachineGuid { get; set; }
         public byte[] ScreenData { get; set; }
-        public DateTime AliveTime { get; private set; }
+        public DateTime AliveTime { get; set; }
         #endregion
 
         #region 构造方法
-        public RemoteInfo(string machineName,string machineGuid)
+        public RemoteInfo(string machineGuid, string machineName = null)
         {
-            MachineName = machineName;
             MachineGuid = machineGuid;
+            if (!String.IsNullOrWhiteSpace(machineName))
+                MachineName = machineName;
+            else
+                MachineName = String.Empty;
         }
         #endregion
 

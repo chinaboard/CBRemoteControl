@@ -27,20 +27,25 @@ namespace CBRemoteControl.Monitor
         {
             var xx = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
             var xlist = JsonSerialization.Json2Object(xx.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
-            foreach (var x in xlist)
+            if(xlist!=null && xlist.Count > 0)    
             {
-                this.textBox1.Text += x.MachineGuid + Environment.NewLine;
-                test = x.MachineGuid;
+                foreach (var x in xlist)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.SubItems[0].Text = x.MachineName;
+                    lvi.Tag = x;
+                    this.listView.Items.Add(lvi);
+                }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var xx = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, new RemoteInfo("xxx", test)).Message);
+            var xx = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, new RemoteInfo(test, "xxx")).Message);
 
             var x = BitmapCommon.Byte2Bitmap(new Package(xx).RemoteData.ScreenData);
             if (x != null)
-                this.pictureBox1.Image = x;
+                this.pictureBox.Image = x;
         }
     }
 }

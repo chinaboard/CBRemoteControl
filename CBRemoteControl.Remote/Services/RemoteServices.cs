@@ -12,7 +12,6 @@ namespace CBRemoteControl.Remote.Services
     {
         #region 字段
         private NetMQContext _Context;
-        private NetMQMessage _NextMessage;
         private bool _ContextIsOpend;
         #endregion
 

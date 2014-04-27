@@ -13,7 +13,7 @@ namespace CBRemoteControl.Remote.Manager
         public string ServiceDomain { get { return GetAppConfig("ServiceDomain"); } }
         public string ServicePort { get { return GetAppConfig("ServicePort"); } }
         public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort); } }
-        public RemoteInfo RemoteData { get { return new RemoteInfo(MachineName, MachineGuid); } }
+        public RemoteInfo RemoteData { get { return new RemoteInfo(MachineGuid, MachineName); } }
         public string MachineGuid
         {
             get
