@@ -73,8 +73,10 @@ namespace CBRemoteControl.Remote.Services
                     try
                     {
                         clientSocket.SendMessage(message);
-                        var xx = clientSocket.ReceiveMessage();
-                        Console.WriteLine(xx.First.BufferSize);
+                        var receive = clientSocket.ReceiveMessage();
+
+                        CacheManager.Instance.AddCommand(receive);
+
                         Thread.Sleep(2000);
                     }
                     catch

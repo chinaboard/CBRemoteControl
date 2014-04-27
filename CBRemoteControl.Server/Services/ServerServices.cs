@@ -1,4 +1,5 @@
-﻿using CBRemoteControl.Server.Manager;
+﻿using CBRemoteControl.Model;
+using CBRemoteControl.Server.Manager;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -43,12 +44,12 @@ namespace CBRemoteControl.Server.Services
                 {
                     try
                     {
-                        var message = serverSocket.ReceiveMessage();
-                        foreach (var x in message)
+                        var receive = serverSocket.ReceiveMessage();
+                        foreach (var x in receive)
                         {
                             Console.WriteLine(x.ConvertToString());
                         }
-
+                        var message = new Package(ActionType.SayHeelo).Message;
                         serverSocket.SendMessage(message);
                     }
                     catch
@@ -56,16 +57,6 @@ namespace CBRemoteControl.Server.Services
                         if(!_ContextIsOpend)
                             return;
                     }
-
-
-                    //var message = serverSocket.Receive();
-                    //var packet = new Packet(message);
-                    //Console.WriteLine("Receive message {0}", packet.JsonStr);
-                    //Package package  = new Package();
-                    //package = Utility.JsonSerialization.Json2Object(packet.JsonStr,package.GetType()) as Package;
-                    //CommandManager.Init(package);
-                    //serverSocket.Send(String.Format("you are {0}",package.RemoteData.MachineName));
-
                 }
             }
         }

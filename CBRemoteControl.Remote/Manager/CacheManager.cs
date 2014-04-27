@@ -1,9 +1,7 @@
 ﻿using CBRemoteControl.Model;
+using NetMQ;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CBRemoteControl.Remote.Manager
@@ -11,7 +9,7 @@ namespace CBRemoteControl.Remote.Manager
     class CacheManager
     {
         #region 字段
-        private ConcurrentQueue<ActionType> _CommandQueue;
+        private ConcurrentQueue<Package> _CommandQueue;
         #endregion
 
         #region 属性
@@ -25,17 +23,24 @@ namespace CBRemoteControl.Remote.Manager
         }
         CacheManager()
         {
-            _CommandQueue = new ConcurrentQueue<ActionType>();
+            _CommandQueue = new ConcurrentQueue<Package>();
             Task.Factory.StartNew(() => GuardQueue());
         }
         #endregion
 
         #region 方法
-        public void AddCommand(ActionType actionCode)
+        public void AddCommand(NetMQMessage message)
         {
-            if (actionCode == ActionType.SayHeelo)
+            var actionCode = (ActionType)Enum.Parse(typeof(ActionType),message.First.ConvertToString());
+
+            Console.WriteLine(String.Format("{0} : {1}", DateTime.Now, actionCode));
+
+            if (actionCode.Equals(ActionType.SayHeelo))
+            {
                 return;
-            _CommandQueue.Enqueue(actionCode);
+            }
+
+            _CommandQueue.Enqueue(new Package(message));
         }
         #endregion
 
