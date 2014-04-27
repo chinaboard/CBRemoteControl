@@ -15,6 +15,7 @@ namespace CBRemoteControl.Model
         #region 构造方法
         public RemoteInfo(string machineGuid, string machineName = null)
         {
+            AliveTime = DateTime.Now;
             MachineGuid = machineGuid;
             if (!String.IsNullOrWhiteSpace(machineName))
                 MachineName = machineName;

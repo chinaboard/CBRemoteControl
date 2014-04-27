@@ -14,7 +14,7 @@ namespace CBRemoteControl.Server.Command
         {
             if (inMessage == null || inMessage.IsEmpty)
             {
-                return new Package(ActionType.ServerSayHell0).Message;
+                return new Package(ActionType.ServerSayHello).Message;
             }
             var package = new Package(inMessage);
             //心跳
@@ -29,13 +29,18 @@ namespace CBRemoteControl.Server.Command
             //    return CommandHeartBeat.Init(package);
             //}
 
+            if ((package.ActionCode & ActionType.SayBye) == ActionType.SayBye)
+            {
+                return CommandHeartBeat.Init(package,true);
+            }
+
             //有关远程机器
             if ((package.ActionCode & ActionType.GetRemote) == ActionType.GetRemote)
             {
                 return CommandRemoteInfo.Init(package);
             }
 
-            return new Package(ActionType.ServerSayHell0).Message;
+            return new Package(ActionType.ServerSayHello).Message;
         }
     }
 }

@@ -13,28 +13,24 @@ namespace CBRemoteControl.Monitor.Services
     {
         #region 字段
         private static NetMQContext _Context;
+        private static NetMQSocket _MonitorSocket;
         #endregion
 
         #region 方法
         public static void Start()
         {
             _Context = NetMQContext.Create();
+            _MonitorSocket = _Context.CreateRequestSocket();
+            _MonitorSocket.Connect(ConfigManager.Instance.ServiceBind);
         }
 
 
         public static NetMQMessage Send(NetMQMessage outMessage)
         {
-            using (NetMQSocket clientSocket = _Context.CreateRequestSocket())
-            {
-                clientSocket.Connect(ConfigManager.Instance.ServiceBind);
-
-                NetMQMessage message = outMessage;
-                clientSocket.SendMessage(message);
-
-                var receive = clientSocket.ReceiveMessage();
-
-                return receive;
-            }
+            _MonitorSocket.Connect(ConfigManager.Instance.ServiceBind);
+            NetMQMessage message = outMessage;
+            _MonitorSocket.SendMessage(message);
+            return _MonitorSocket.ReceiveMessage();
         }
         #endregion
     }

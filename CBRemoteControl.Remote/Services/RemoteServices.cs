@@ -12,6 +12,7 @@ namespace CBRemoteControl.Remote.Services
     {
         #region 字段
         private NetMQContext _Context;
+        private NetMQSocket _ClientSocket;
         private bool _ContextIsOpend;
         #endregion
 
@@ -19,45 +20,46 @@ namespace CBRemoteControl.Remote.Services
         public void Start()
         {
             _Context = NetMQContext.Create();
+            _ClientSocket = _Context.CreateRequestSocket();
+            _ClientSocket.Connect(ConfigManager.Instance.ServiceBind);
             _ContextIsOpend = true;
-            Client(_Context);
+            Client();
         }
         public void Stop()
         {
             if (_Context != null)
             {
                 _ContextIsOpend = false;
+                Send(new Package(ActionType.RemoteSayBye, ConfigManager.Instance.RemoteData).Message);
                 _Context.Terminate();
             }
         }
         #endregion
 
         #region 私有方法
-        private void Client(NetMQContext context)
+        private void Client()
         {
-            using (NetMQSocket clientSocket = context.CreateRequestSocket())
+            NetMQMessage message = CommandManager.Init();
+            while (true)
             {
-                clientSocket.Connect(ConfigManager.Instance.ServiceBind);
-                NetMQMessage message = CommandManager.Init();
-                while (true)
+                try
                 {
-                    try
-                    {
-                        clientSocket.SendMessage(message);
-
-                        var receive = clientSocket.ReceiveMessage();
-
-                        message = CommandManager.Init(receive);
-
-                        Thread.Sleep(2000);
-                    }
-                    catch
-                    {
-                        if (!_ContextIsOpend)
-                            return;
-                    }
+                    message = CommandManager.Init(Send(message));
+                    Thread.Sleep(2000);
+                }
+                catch
+                {
+                    if (!_ContextIsOpend)
+                        return;
                 }
             }
+        }
+
+        private NetMQMessage Send(NetMQMessage outMessage)
+        {
+            NetMQMessage message = outMessage;
+            _ClientSocket.SendMessage(message);
+            return _ClientSocket.ReceiveMessage();
         }
         #endregion
     }

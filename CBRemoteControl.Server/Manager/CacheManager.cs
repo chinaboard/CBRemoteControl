@@ -44,6 +44,13 @@ namespace CBRemoteControl.Server.Manager
             _RemoteInfoCache[remoteData.MachineGuid] = remoteData;
             return true;
         }
+
+        public bool RemoveRemote(RemoteInfo remoteData)
+        {
+            RemoteInfo temp;
+            return _RemoteInfoCache.TryRemove(remoteData.MachineGuid, out temp);
+        }
+
         public List<RemoteInfo> GetRemoteList()
         {
             Console.WriteLine(String.Format("{0} : GetRemoteList {1}", DateTime.Now, _RemoteInfoCache.Count));

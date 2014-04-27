@@ -52,7 +52,7 @@ namespace CBRemoteControl.Server.Services
                     }
                     catch
                     {
-                        if(!_ContextIsOpend)
+                        if (!_ContextIsOpend)
                             return;
                     }
                 }

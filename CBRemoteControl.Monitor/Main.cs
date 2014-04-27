@@ -71,14 +71,14 @@ namespace CBRemoteControl.Monitor
         {
             var inMessage = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
             var remoteInfoList = JsonSerialization.Json2Object(inMessage.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
+            this.Invoke(new Action(() =>
+            {
+                if (this.listView.SelectedItems.Count != 0)
+                    _NowSelected = this.listView.SelectedItems[0].Tag as RemoteInfo;
+                this.listView.Items.Clear();
+            }));
             if (remoteInfoList != null && remoteInfoList.Count > 0)
             {
-                this.Invoke(new Action(() =>
-                {
-                    if (this.listView.SelectedItems.Count != 0)
-                        _NowSelected = this.listView.SelectedItems[0].Tag as RemoteInfo;
-                }));
-                this.Invoke(new Action(() => this.listView.Items.Clear()));
                 Dictionary<string, int> machineNameDict = new Dictionary<string, int>();
                 foreach (var remoteInfo in remoteInfoList)
                 {
@@ -108,6 +108,8 @@ namespace CBRemoteControl.Monitor
         {
             var receive = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, remoteData).Message);
             remoteData = new Package(receive).RemoteData;
+            if (remoteData == null)
+                return;
             this.Invoke(new Action(() =>
                 {
                     this.groupPicBox.Text = "Alive Time : " + remoteData.AliveTime.ToString();
