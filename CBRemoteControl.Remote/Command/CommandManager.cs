@@ -15,10 +15,12 @@ namespace CBRemoteControl.Remote.Command
         {
             if (inMessage == null || inMessage.IsEmpty)
             {
-                return new Package(ActionType.RemoteSayHeelo).Message;
+                return CommandHeartBeat.Init();
             }
 
             var package = new Package(inMessage);
+
+            CacheManager.Instance.AddCommand(inMessage);
 
             //心跳
             if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
@@ -27,7 +29,7 @@ namespace CBRemoteControl.Remote.Command
             }
 
             //无动于衷
-            CacheManager.Instance.AddCommand(inMessage);
+            
             return CommandHeartBeat.Init();
         }
 

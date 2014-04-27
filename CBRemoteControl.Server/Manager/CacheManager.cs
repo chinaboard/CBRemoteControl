@@ -46,15 +46,13 @@ namespace CBRemoteControl.Server.Manager
             _RemoteInfoCache[remoteData.MachineGuid] = remoteData;
             return true;
         }
-        public List<RemoteInfo> GetServerList()
+        public List<RemoteInfo> GetRemoteList()
         {
             return _RemoteInfoCache.Values.ToList();
         }
-        public RemoteInfo GetServerInfo(string remoteGuid)
+        public bool GetRemoteInfo(string remoteGuid, out RemoteInfo value)
         {
-            RemoteInfo value;
-            _RemoteInfoCache.TryGetValue(remoteGuid, out value);
-            return value;
+            return _RemoteInfoCache.TryGetValue(remoteGuid, out value);
         }
         #endregion
 

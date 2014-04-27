@@ -1,4 +1,6 @@
 ﻿using CBRemoteControl.Model;
+using CBRemoteControl.Server.Manager;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -11,14 +13,21 @@ namespace CBRemoteControl.Server.Command
     {
         public static NetMQMessage Init(Package package)
         {
-            switch(package.ActionCode)
+            var outMessage = new Package(ActionType.Reject).Message;
+
+            switch (package.ActionCode)
             {
                 case ActionType.GetRemoteInfo:
-                    return null;
+                    RemoteInfo remoteInfo;
+                    if (CacheManager.Instance.GetRemoteInfo(package.RemoteData.MachineGuid, out remoteInfo))
+                        outMessage = new Package(ActionType.GetRemoteInfo, remoteInfo).Message;
+                    break;
                 case ActionType.GetRemoteList:
-                    return null;
+                    outMessage.Append(Enum.GetName(typeof(ActionType), ActionType.GetRemoteList));
+                    outMessage.Append(JsonSerialization.Object2Json(CacheManager.Instance.GetRemoteList()));
+                    break;
             }
-            return null;
+            return outMessage;
         }
     }
 }
