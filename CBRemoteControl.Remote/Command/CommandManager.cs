@@ -11,21 +11,24 @@ namespace CBRemoteControl.Remote.Command
 {
     class CommandManager
     {
-        public static NetMQMessage Init(NetMQMessage message = null)
+        public static NetMQMessage Init(NetMQMessage inMessage = null)
         {
-            if (message == null || message.IsEmpty)
+            if (inMessage == null || inMessage.IsEmpty)
+            {
+                return new Package(ActionType.RemoteSayHeelo).Message;
+            }
+
+            var package = new Package(inMessage);
+
+            //心跳
+            if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
             {
                 return CommandHeartBeat.Init();
             }
-            var package = new Package(message);
-            switch (package.ActionCode)
-            {
-                case ActionType.SayHeelo: 
-                    return CommandHeartBeat.Init();
-                default:
-                    CacheManager.Instance.AddCommand(message);
-                    return CommandHeartBeat.Init();
-            }
+
+            //无动于衷
+            CacheManager.Instance.AddCommand(inMessage);
+            return CommandHeartBeat.Init();
         }
 
     }

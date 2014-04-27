@@ -1,5 +1,6 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Server.Manager;
+using NetMQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace CBRemoteControl.Server.Command
 {
     class CommandHeartBeat
     {
-        public static void Init(Package package)
+        public static NetMQMessage Init(Package package)
         {
             CacheManager.Instance.AddOrUpdateRemoteInfo(package.RemoteData);
+            return new Package(ActionType.ServerSayHell0).Message;
         }
     }
 }

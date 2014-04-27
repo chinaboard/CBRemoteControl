@@ -10,20 +10,24 @@ namespace CBRemoteControl.Server.Command
 {
     class CommandManager
     {
-        public static NetMQMessage Init(NetMQMessage message)
+        public static NetMQMessage Init(NetMQMessage inMessage)
         {
-            if (message == null || message.IsEmpty)
+            if (inMessage == null || inMessage.IsEmpty)
             {
-                return new Package(ActionType.SayHeelo).Message;
+                return new Package(ActionType.ServerSayHell0).Message;
             }
-            var package = new Package(message);
-            switch(package.ActionCode)
+            var package = new Package(inMessage);
+            //心跳
+            if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
             {
-                case ActionType.SayHeelo: 
-                    CommandHeartBeat.Init(package);
-                    return new Package(ActionType.SayHeelo).Message;
+                return CommandHeartBeat.Init(package);
             }
-            return new Package(ActionType.SayHeelo).Message;
+            //有关远程机器
+            if ((package.ActionCode & ActionType.GetRemote) == ActionType.GetRemote)
+            {
+                return CommandRemoteInfo.Init(package);
+            }
+            return new Package(ActionType.ServerSayHell0).Message;
         }
     }
 }

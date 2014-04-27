@@ -36,7 +36,7 @@ namespace CBRemoteControl.Remote.Manager
 
             Console.WriteLine(String.Format("{0} : {1}", DateTime.Now, actionCode));
 
-            if (actionCode.Equals(ActionType.SayHeelo))
+            if (actionCode.Equals(ActionType.RemoteSayHeelo))
             {
                 return;
             }

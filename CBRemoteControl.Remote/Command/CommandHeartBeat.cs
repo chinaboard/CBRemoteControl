@@ -13,7 +13,7 @@ namespace CBRemoteControl.Remote.Command
     {
         public static NetMQMessage Init()
         {
-            ActionType actionCode = ActionType.SayHeelo;
+            ActionType actionCode = ActionType.RemoteSayHeelo;
             var package = new Package(actionCode, ConfigManager.Instance.RemoteData);
             return package.Message;
         }

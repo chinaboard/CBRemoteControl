@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Command\CommandManager.cs" />
     <Compile Include="Command\CommandHeartBeat.cs" />
+    <Compile Include="Command\CommandRemoteInfo.cs" />
     <Compile Include="Manager\CacheManager.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Program.cs" />

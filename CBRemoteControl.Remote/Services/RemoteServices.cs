@@ -44,7 +44,6 @@ namespace CBRemoteControl.Remote.Services
                     NetMQMessage message = CommandManager.Init();
                     try
                     {
-                        
                         clientSocket.SendMessage(message);
 
                         var receive = clientSocket.ReceiveMessage();
