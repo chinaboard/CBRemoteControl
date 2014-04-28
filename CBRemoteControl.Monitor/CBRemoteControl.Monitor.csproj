@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BitmapCommon.cs" />
+    <Compile Include="Common\RemoteCommon.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

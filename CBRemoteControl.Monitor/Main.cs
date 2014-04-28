@@ -69,8 +69,7 @@ namespace CBRemoteControl.Monitor
         }
         private void RefreshList()
         {
-            var inMessage = MonitorServices.Send(new Package(ActionType.GetRemoteList).Message);
-            var remoteInfoList = JsonSerialization.Json2Object(inMessage.Last.ConvertToString(), typeof(List<RemoteInfo>)) as List<RemoteInfo>;
+            var remoteInfoList = RemoteCommon.Instance.RemoteInfoList;
             this.Invoke(new Action(() =>
             {
                 if (this.listView.SelectedItems.Count != 0)
@@ -106,8 +105,7 @@ namespace CBRemoteControl.Monitor
         }
         private void SetRemoteInfo(RemoteInfo remoteData)
         {
-            var receive = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, remoteData).Message);
-            remoteData = new Package(receive).RemoteData;
+            remoteData = RemoteCommon.Instance.GetRemoteInfo(remoteData);
             if (remoteData == null)
                 return;
             this.Invoke(new Action(() =>

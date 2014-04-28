@@ -41,7 +41,7 @@ namespace CBRemoteControl.Remote.Manager
                 return;
             }
 
-            _CommandQueue.Enqueue(new Package(message));
+            _CommandQueue.Enqueue(new Package(message,false));
         }
         #endregion
 
