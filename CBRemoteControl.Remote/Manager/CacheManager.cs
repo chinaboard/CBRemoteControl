@@ -1,4 +1,5 @@
 ﻿using CBRemoteControl.Model;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Collections.Concurrent;
@@ -34,7 +35,7 @@ namespace CBRemoteControl.Remote.Manager
         {
             var actionCode = (ActionType)Enum.Parse(typeof(ActionType),message.First.ConvertToString());
 
-            Console.WriteLine(String.Format("{0} : {1}", DateTime.Now, actionCode));
+            LogFormat.WriteLine("Receive ", actionCode.ToString());
 
             if (actionCode.Equals(ActionType.RemoteSayHeelo))
             {

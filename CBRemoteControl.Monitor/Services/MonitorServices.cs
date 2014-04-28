@@ -20,17 +20,18 @@ namespace CBRemoteControl.Monitor.Services
         public static void Start()
         {
             _Context = NetMQContext.Create();
-            _MonitorSocket = _Context.CreateRequestSocket();
-            _MonitorSocket.Connect(ConfigManager.Instance.ServiceBind);
         }
 
 
         public static NetMQMessage Send(NetMQMessage outMessage)
         {
-            _MonitorSocket.Connect(ConfigManager.Instance.ServiceBind);
-            NetMQMessage message = outMessage;
-            _MonitorSocket.SendMessage(message);
-            return _MonitorSocket.ReceiveMessage();
+            using (var _MonitorSocket = _Context.CreateRequestSocket())
+            {
+                _MonitorSocket.Connect(ConfigManager.Instance.ServiceBind);
+                NetMQMessage message = outMessage;
+                _MonitorSocket.SendMessage(message);
+                return _MonitorSocket.ReceiveMessage();
+            }
         }
         #endregion
     }

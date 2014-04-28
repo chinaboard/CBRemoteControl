@@ -20,8 +20,6 @@ namespace CBRemoteControl.Remote.Services
         public void Start()
         {
             _Context = NetMQContext.Create();
-            _ClientSocket = _Context.CreateRequestSocket();
-            _ClientSocket.Connect(ConfigManager.Instance.ServiceBind);
             _ContextIsOpend = true;
             Client();
         }
@@ -57,9 +55,13 @@ namespace CBRemoteControl.Remote.Services
 
         private NetMQMessage Send(NetMQMessage outMessage)
         {
-            NetMQMessage message = outMessage;
-            _ClientSocket.SendMessage(message);
-            return _ClientSocket.ReceiveMessage();
+            using (_ClientSocket = _Context.CreateRequestSocket())
+            {
+                _ClientSocket.Connect(ConfigManager.Instance.ServiceBind);
+                NetMQMessage message = outMessage;
+                _ClientSocket.SendMessage(message);
+                return _ClientSocket.ReceiveMessage();
+            }
         }
         #endregion
     }
