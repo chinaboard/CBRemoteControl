@@ -1,5 +1,6 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Monitor.Common;
+using CBRemoteControl.Monitor.Manager;
 using CBRemoteControl.Monitor.Services;
 using CBRemoteControl.Utility;
 using NetMQ;
@@ -56,7 +57,7 @@ namespace CBRemoteControl.Monitor
             {
                 RefreshList();
                 RefreshScreen();
-                Thread.Sleep(5000);
+                Thread.Sleep(ConfigManager.Instance.HeartBeat);
             }
         }
         private void RefreshList()

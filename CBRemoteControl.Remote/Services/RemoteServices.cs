@@ -43,7 +43,7 @@ namespace CBRemoteControl.Remote.Services
                 try
                 {
                     message = CommandManager.Init(Send(message));
-                    Thread.Sleep(2000);
+                    Thread.Sleep(ConfigManager.Instance.HeartBeat);
                 }
                 catch
                 {
