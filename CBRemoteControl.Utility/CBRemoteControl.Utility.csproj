@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DomainName.cs" />
     <Compile Include="JsonSerialization.cs" />
+    <Compile Include="LogFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

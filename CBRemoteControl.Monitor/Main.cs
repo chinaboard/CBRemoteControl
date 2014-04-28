@@ -24,7 +24,6 @@ namespace CBRemoteControl.Monitor
         public Main()
         {
             InitializeComponent();
-            MonitorServices.Start();
             Task.Factory.StartNew(() => AutoRefresh());
         }
         #region 事件

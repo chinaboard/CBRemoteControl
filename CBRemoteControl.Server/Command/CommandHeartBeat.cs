@@ -1,5 +1,6 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Server.Manager;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace CBRemoteControl.Server.Command
             {
                 if (CacheManager.Instance.RemoveRemote(package.RemoteData))
                 {
-                    Console.WriteLine(String.Format("{0} : Say Bye {1}", DateTime.Now, package.RemoteData.MachineName));
+                    LogFormat.WriteLine(package.RemoteData.MachineGuid, "Offline");
                     return new Package(ActionType.ServerSayBye).Message;
                 }
                 return new Package(ActionType.Reject).Message;
@@ -24,6 +25,7 @@ namespace CBRemoteControl.Server.Command
 
             if(CacheManager.Instance.AddOrUpdateRemoteInfo(package.RemoteData))
                 return new Package(ActionType.TransPic).Message;
+
             return new Package(ActionType.Reject).Message;
             
         }
