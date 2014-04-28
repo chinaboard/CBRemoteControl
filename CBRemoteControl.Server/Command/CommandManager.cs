@@ -16,10 +16,11 @@ namespace CBRemoteControl.Server.Command
             {
                 return new Package(ActionType.ServerSayHello).Message;
             }
+            var package = new Package(inMessage, false);
             //心跳
             if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
             {
-                return CommandHeartBeat.Init(new Package(inMessage));
+                return CommandHeartBeat.Init(package);
             }
 
             //要求被控端更新截屏
@@ -30,13 +31,13 @@ namespace CBRemoteControl.Server.Command
 
             if ((package.ActionCode & ActionType.SayBye) == ActionType.SayBye)
             {
-                return CommandHeartBeat.Init(new Package(inMessage), true);
+                return CommandHeartBeat.Init(package, true);
             }
 
             //有关远程机器
             if ((package.ActionCode & ActionType.GetRemote) == ActionType.GetRemote)
             {
-                return CommandRemoteInfo.Init(new Package(inMessage));
+                return CommandRemoteInfo.Init(package);
             }
 
             return new Package(ActionType.ServerSayHello).Message;

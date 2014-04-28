@@ -20,6 +20,8 @@ namespace CBRemoteControl.Remote.Command
 
             CacheManager.Instance.AddCommand(inMessage);
 
+            var package = new Package(inMessage, true);
+
             //心跳
             if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
             {
@@ -27,7 +29,7 @@ namespace CBRemoteControl.Remote.Command
             }
 
             //扔截屏
-            if((package.ActionCode & ActionType.TransPic) == ActionType.TransPic)
+            if ((package.ActionCode & ActionType.TransPic) == ActionType.TransPic)
             {
                 return CommandTransPic.Init();
             }

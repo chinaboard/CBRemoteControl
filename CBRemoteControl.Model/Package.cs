@@ -18,12 +18,14 @@ namespace CBRemoteControl.Model
 
         #region 构造方法
 
-        public Package(NetMQMessage message)
+        public Package(NetMQMessage message,bool onlyAcitonCode)
         {
             if (message == null)
                 return;
             _Message = message;
             ActionCode = (ActionType)Enum.Parse(typeof(ActionType), message.First.ConvertToString());
+            if (onlyAcitonCode)
+                return;
             //现在的Pakage只有2个Frame
             if (message.FrameCount > 1 )
                 RemoteData = JsonSerialization.Json2Object(message[1].ConvertToString(), typeof(RemoteInfo)) as RemoteInfo;
