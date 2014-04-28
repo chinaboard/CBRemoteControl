@@ -18,8 +18,6 @@ namespace CBRemoteControl.Remote.Command
                 return CommandHeartBeat.Init();
             }
 
-            var package = new Package(inMessage);
-
             CacheManager.Instance.AddCommand(inMessage);
 
             //心跳
@@ -35,7 +33,6 @@ namespace CBRemoteControl.Remote.Command
             }
 
             //无动于衷
-            
             return CommandHeartBeat.Init();
         }
 

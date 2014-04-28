@@ -9,6 +9,7 @@ namespace CBRemoteControl.Model
         #region 字段
         private NetMQMessage _Message;
         #endregion
+
         #region 属性
         public ActionType ActionCode { get; private set; }
         public RemoteInfo RemoteData { get; private set; }
@@ -23,6 +24,7 @@ namespace CBRemoteControl.Model
                 return;
             _Message = message;
             ActionCode = (ActionType)Enum.Parse(typeof(ActionType), message.First.ConvertToString());
+            //现在的Pakage只有2个Frame
             if (message.FrameCount > 1 )
                 RemoteData = JsonSerialization.Json2Object(message[1].ConvertToString(), typeof(RemoteInfo)) as RemoteInfo;
         }
