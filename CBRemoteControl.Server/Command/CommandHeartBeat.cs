@@ -13,20 +13,21 @@ namespace CBRemoteControl.Server.Command
     {
         public static NetMQMessage Init(Package package,bool offline = false)
         {
+            var actionCode = ActionType.Reject;
+
             if(offline)
             {
                 if (CacheManager.Instance.RemoveRemote(package.RemoteData))
                 {
-                    LogFormat.WriteLine(package.RemoteData.MachineGuid, "Offline");
-                    return new Package(ActionType.ServerSayBye).Message;
+                    LogFormat.WriteLine("Offline", package.RemoteData.MachineGuid);
+                    actionCode = ActionType.ServerSayBye;
                 }
-                return new Package(ActionType.Reject).Message;
+                return new Package(actionCode).Message;
             }
 
-            if(CacheManager.Instance.AddOrUpdateRemoteInfo(package.RemoteData))
-                return new Package(ActionType.TransPic).Message;
+            CacheManager.Instance.AddOrUpdateRemoteInfo(package.RemoteData, out actionCode);
 
-            return new Package(ActionType.Reject).Message;
+            return new Package(actionCode).Message;
             
         }
     }

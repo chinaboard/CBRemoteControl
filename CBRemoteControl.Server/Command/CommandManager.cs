@@ -18,24 +18,24 @@ namespace CBRemoteControl.Server.Command
             }
             var package = new Package(inMessage, false);
             //心跳
-            if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
+            if (Rule.Compare((int)package.ActionCode, (int)ActionType.SayHello))
             {
                 return CommandHeartBeat.Init(package);
             }
 
             //要求被控端更新截屏
-            //if ((package.ActionCode & ActionType.TransPic) == ActionType.TransPic)
+            //if ((package.ActionCode & ActionType.TransScreen) == ActionType.TransScreen)
             //{
             //    return CommandHeartBeat.Init(package);
             //}
 
-            if ((package.ActionCode & ActionType.SayBye) == ActionType.SayBye)
+            if (Rule.Compare((int)package.ActionCode, (int)ActionType.SayBye))
             {
                 return CommandHeartBeat.Init(package, true);
             }
 
             //有关远程机器
-            if ((package.ActionCode & ActionType.GetRemote) == ActionType.GetRemote)
+            if (Rule.Compare((int)package.ActionCode, (int)ActionType.GetRemote))
             {
                 return CommandRemoteInfo.Init(package);
             }

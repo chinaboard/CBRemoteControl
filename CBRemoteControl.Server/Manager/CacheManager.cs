@@ -13,7 +13,7 @@ namespace CBRemoteControl.Server.Manager
     class CacheManager
     {
         #region 字段
-        private ConcurrentDictionary<string, RemoteInfo> _RemoteInfoCache;
+        private ConcurrentDictionary<string, RemoteStatus> _RemoteInfoCache;
         #endregion
 
         #region 属性
@@ -27,55 +27,84 @@ namespace CBRemoteControl.Server.Manager
         }
         CacheManager()
         {
-            _RemoteInfoCache = new ConcurrentDictionary<string, RemoteInfo>();
-            Task.Factory.StartNew(()=>GuardCache());
+            _RemoteInfoCache = new ConcurrentDictionary<string, RemoteStatus>();
+            Task.Factory.StartNew(() => GuardCache());
         }
         #endregion
 
         #region 方法
-        public bool AddOrUpdateRemoteInfo(RemoteInfo remoteData)
+        public bool AddOrUpdateRemoteInfo(RemoteInfo remoteData ,out ActionType actionCode)
         {
-            if(remoteData == null)
+            actionCode = ActionType.ServerSayHello;
+            if (remoteData == null)
             {
+                actionCode = ActionType.Reject;
                 return false;
             }
-            remoteData.SetAliveTime();
+
             if (!_RemoteInfoCache.ContainsKey(remoteData.MachineGuid))
-                LogFormat.WriteLine(remoteData.MachineGuid, "Online");
-            _RemoteInfoCache[remoteData.MachineGuid] = remoteData;
+            {
+                LogFormat.WriteLine("Online", remoteData.MachineGuid);
+                _RemoteInfoCache[remoteData.MachineGuid] = new RemoteStatus(remoteData);
+            }
+
+            if (_RemoteInfoCache[remoteData.MachineGuid].Status == StatusType.TransScreen)
+                actionCode = ActionType.TransScreen;
+            _RemoteInfoCache[remoteData.MachineGuid].SetRemoteData(remoteData);
+
+            _RemoteInfoCache[remoteData.MachineGuid].RemoteData.SetAliveTime();
+
             return true;
         }
 
         public bool RemoveRemote(RemoteInfo remoteData)
         {
-            RemoteInfo temp;
+            RemoteStatus temp;
             return _RemoteInfoCache.TryRemove(remoteData.MachineGuid, out temp);
         }
 
         public List<RemoteInfo> GetRemoteList()
         {
-            return _RemoteInfoCache.Values.ToList();
+            var list = new List<RemoteInfo>();
+            foreach(var rData in _RemoteInfoCache.Values.ToList())
+            {
+                list.Add(rData.RemoteData);
+            }
+            return list;
         }
         public bool GetRemoteInfo(string remoteGuid, out RemoteInfo value)
         {
-            Console.WriteLine(String.Format("{0} : GetRemoteInfo {1}", DateTime.Now, remoteGuid));
-            return _RemoteInfoCache.TryGetValue(remoteGuid, out value);
+            RemoteStatus temp;
+            value = null;
+            if (_RemoteInfoCache.TryGetValue(remoteGuid, out temp))
+            {
+                value = temp.RemoteData;
+                _RemoteInfoCache[temp.RemoteData.MachineGuid].SetStatus(StatusType.TransScreen);
+                return true;
+            }
+            return false;
         }
         #endregion
 
         #region 私有方法
         private void GuardCache()
         {
-            while(true)
+            while (true)
             {
                 var list = _RemoteInfoCache.Values.ToList();
-                foreach(var rData in list)
+                foreach (var rData in list)
                 {
-                    if (DateTime.Now.Subtract(rData.AliveTime).TotalMinutes > 1)
+
+                    if (DateTime.Now.Subtract(rData.ActionTime).Seconds > 20)
                     {
-                        RemoteInfo temp;
-                        LogFormat.WriteLine(rData.MachineGuid, "Offline");
-                        _RemoteInfoCache.TryRemove(rData.MachineGuid, out temp);
+                        _RemoteInfoCache[rData.RemoteData.MachineGuid].SetStatus();
+                    }
+
+                    if (DateTime.Now.Subtract(rData.RemoteData.AliveTime).TotalMinutes > 1)
+                    {
+                        RemoteStatus temp;
+                        LogFormat.WriteLine("Offline", rData.RemoteData.MachineGuid);
+                        _RemoteInfoCache.TryRemove(rData.RemoteData.MachineGuid, out temp);
                     }
                 }
                 Thread.Sleep(1000);

@@ -22,6 +22,6 @@ namespace CBRemoteControl.Model
         GetRemoteList = 0000000101,
         GetRemoteInfo = 0000000102,
 
-        TransPic = 0000001000,
+        TransScreen = 0000001000,
     }
 }

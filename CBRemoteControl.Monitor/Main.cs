@@ -82,7 +82,7 @@ namespace CBRemoteControl.Monitor
                     tmp.MachineName = remoteInfo.MachineName + (machineNameDict[remoteInfo.MachineName] > 0 ? "(" + machineNameDict[remoteInfo.MachineName] + ")" : String.Empty);
                     lvi.SubItems[0].Text = tmp.MachineName;
                     lvi.Tag = tmp;
-                    if (tmp.MachineGuid.Equals(_NowSelected))
+                    if (_NowSelected != null && tmp.MachineGuid.Equals(_NowSelected.MachineGuid))
                         lvi.Selected = true;
                     this.Invoke(new Action(() => this.listView.Items.Add(lvi)));
                 }

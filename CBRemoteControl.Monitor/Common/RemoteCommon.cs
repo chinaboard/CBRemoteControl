@@ -38,7 +38,7 @@ namespace CBRemoteControl.Monitor.Common
             if (!hasScreen)
                 return remoteData;
             var receive = MonitorServices.Send(new Package(ActionType.GetRemoteInfo, remoteData).Message);
-            return new Package(receive, true).RemoteData;
+            return new Package(receive, false).RemoteData;
         }
         #endregion
 

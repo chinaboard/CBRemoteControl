@@ -9,7 +9,7 @@ using System.Text;
 
 namespace CBRemoteControl.Remote.Command
 {
-    class CommandTransPic
+    class CommandTransScreen
     {
         public static NetMQMessage Init()
         {

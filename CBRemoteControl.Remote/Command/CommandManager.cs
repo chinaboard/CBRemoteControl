@@ -23,15 +23,15 @@ namespace CBRemoteControl.Remote.Command
             var package = new Package(inMessage, true);
 
             //心跳
-            if ((package.ActionCode & ActionType.SayHello) == ActionType.SayHello)
+            if (Rule.Compare((int)package.ActionCode, (int)ActionType.SayHello))
             {
                 return CommandHeartBeat.Init();
             }
 
             //扔截屏
-            if ((package.ActionCode & ActionType.TransPic) == ActionType.TransPic)
+            if (Rule.Compare((int)package.ActionCode, (int)ActionType.TransScreen))
             {
-                return CommandTransPic.Init();
+                return CommandTransScreen.Init();
             }
 
             //无动于衷
