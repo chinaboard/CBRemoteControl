@@ -19,7 +19,7 @@ namespace CBRemoteControl.Server.Command
             {
                 if (CacheManager.Instance.RemoveRemote(package.RemoteData))
                 {
-                    LogFormat.WriteLine("Offline", package.RemoteData.MachineGuid);
+                    LogFormat.Write("Offline", package.RemoteData.MachineGuid);
                     actionCode = ActionType.ServerSayBye;
                 }
                 return new Package(actionCode).Message;

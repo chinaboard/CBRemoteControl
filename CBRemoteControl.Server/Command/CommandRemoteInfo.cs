@@ -22,14 +22,14 @@ namespace CBRemoteControl.Server.Command
                     if (CacheManager.Instance.GetRemoteInfo(package.RemoteData.MachineGuid, out remoteInfo))
                     {
                         outMessage = new Package(ActionType.GetRemoteInfo, remoteInfo).Message;
-                        LogFormat.WriteLine("GetRemoteInfo : " + remoteInfo.MachineGuid, "Monitor");
+                        LogFormat.Write("Monitor", "GetRI " + remoteInfo.MachineGuid);
                     }
                     break;
                 case ActionType.GetRemoteList:
                     outMessage = new NetMQMessage();
                     outMessage.Append(Enum.GetName(typeof(ActionType), ActionType.GetRemoteList));
                     outMessage.Append(JsonSerialization.Object2Json(CacheManager.Instance.GetRemoteList()));
-                    LogFormat.WriteLine("GetRemoteList", "Monitor");
+                    LogFormat.Write("Monitor", "GetRemoteList");
                     break;
             }
             return outMessage;

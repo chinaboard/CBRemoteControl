@@ -1,6 +1,7 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Server.Command;
 using CBRemoteControl.Server.Manager;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace CBRemoteControl.Server.Services
         #region 方法
         public void Start()
         {
+            LogFormat.Write("Server", "Start");
             _Context = NetMQContext.Create();
             _ContextIsOpend = true;
             Server(_Context);
@@ -28,6 +30,7 @@ namespace CBRemoteControl.Server.Services
         {
             if (_Context != null)
             {
+                LogFormat.Write("Server", "Stop");
                 _ContextIsOpend = false;
                 _Context.Terminate();
             }

@@ -1,6 +1,7 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Remote.Command;
 using CBRemoteControl.Remote.Manager;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Threading;
@@ -19,6 +20,7 @@ namespace CBRemoteControl.Remote.Services
         #region 方法
         public void Start()
         {
+            LogFormat.Write("Remote", "Start");
             _Context = NetMQContext.Create();
             _ContextIsOpend = true;
             Client();
@@ -27,6 +29,7 @@ namespace CBRemoteControl.Remote.Services
         {
             if (_Context != null)
             {
+                LogFormat.Write("Remote", "Stop");
                 _ContextIsOpend = false;
                 Send(new Package(ActionType.RemoteSayBye, ConfigManager.Instance.RemoteData).Message);
                 _Context.Terminate();

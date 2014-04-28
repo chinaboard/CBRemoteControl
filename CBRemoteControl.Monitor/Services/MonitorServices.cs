@@ -1,5 +1,6 @@
 ﻿using CBRemoteControl.Model;
 using CBRemoteControl.Monitor.Manager;
+using CBRemoteControl.Utility;
 using NetMQ;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace CBRemoteControl.Monitor.Services
         #region 方法
         public static void Start()
         {
+            LogFormat.Write("Monitor", "Start");
             _Context = NetMQContext.Create();
         }
 

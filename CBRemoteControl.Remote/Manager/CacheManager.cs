@@ -35,7 +35,7 @@ namespace CBRemoteControl.Remote.Manager
         {
             var actionCode = (ActionType)Enum.Parse(typeof(ActionType),message.First.ConvertToString());
 
-            LogFormat.WriteLine("Receive ", actionCode.ToString());
+            LogFormat.Write("Receive ", actionCode.ToString());
 
             if (actionCode.Equals(ActionType.RemoteSayHeelo))
             {

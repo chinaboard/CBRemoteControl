@@ -44,7 +44,7 @@ namespace CBRemoteControl.Server.Manager
 
             if (!_RemoteInfoCache.ContainsKey(remoteData.MachineGuid))
             {
-                LogFormat.WriteLine("Online", remoteData.MachineGuid);
+                LogFormat.Write("Online", remoteData.MachineGuid);
                 _RemoteInfoCache[remoteData.MachineGuid] = new RemoteStatus(remoteData);
             }
 
@@ -74,12 +74,13 @@ namespace CBRemoteControl.Server.Manager
         }
         public bool GetRemoteInfo(string remoteGuid, out RemoteInfo value)
         {
-            RemoteStatus temp;
+            RemoteStatus rData;
             value = null;
-            if (_RemoteInfoCache.TryGetValue(remoteGuid, out temp))
+            if (_RemoteInfoCache.TryGetValue(remoteGuid, out rData))
             {
-                value = temp.RemoteData;
-                _RemoteInfoCache[temp.RemoteData.MachineGuid].SetStatus(StatusType.TransScreen);
+                value = rData.RemoteData;
+                LogFormat.Write(Enum.GetName(typeof(StatusType), StatusType.TransScreen), rData.RemoteData.MachineGuid);
+                _RemoteInfoCache[rData.RemoteData.MachineGuid].SetStatus(StatusType.TransScreen);
                 return true;
             }
             return false;
@@ -97,13 +98,14 @@ namespace CBRemoteControl.Server.Manager
 
                     if (DateTime.Now.Subtract(rData.ActionTime).Seconds > 20)
                     {
+                        LogFormat.Write(Enum.GetName(typeof(StatusType),StatusType.HeartBeat), rData.RemoteData.MachineGuid);
                         _RemoteInfoCache[rData.RemoteData.MachineGuid].SetStatus();
                     }
 
                     if (DateTime.Now.Subtract(rData.RemoteData.AliveTime).TotalMinutes > 1)
                     {
                         RemoteStatus temp;
-                        LogFormat.WriteLine("Offline", rData.RemoteData.MachineGuid);
+                        LogFormat.Write("Offline", rData.RemoteData.MachineGuid);
                         _RemoteInfoCache.TryRemove(rData.RemoteData.MachineGuid, out temp);
                     }
                 }
