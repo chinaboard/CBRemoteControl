@@ -27,7 +27,7 @@ namespace CBRemoteControl.Monitor.Services
 
         public static NetMQMessage Send(NetMQMessage outMessage)
         {
-            using (var _MonitorSocket = _Context.CreateRequestSocket())
+            using (_MonitorSocket = _Context.CreateRequestSocket())
             {
                 _MonitorSocket.Connect(ConfigManager.Instance.ServiceBind);
                 NetMQMessage message = outMessage;

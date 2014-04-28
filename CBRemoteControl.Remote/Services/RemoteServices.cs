@@ -23,7 +23,7 @@ namespace CBRemoteControl.Remote.Services
             LogFormat.Write("Remote", "Start");
             _Context = NetMQContext.Create();
             _ContextIsOpend = true;
-            Client();
+            Task.Factory.StartNew(() => Client());
         }
         public void Stop()
         {

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace CBRemoteControl.Server.Services
 {
@@ -24,7 +25,7 @@ namespace CBRemoteControl.Server.Services
             LogFormat.Write("Server", "Start");
             _Context = NetMQContext.Create();
             _ContextIsOpend = true;
-            Server(_Context);
+            Task.Factory.StartNew(() => Server());
         }
         public void Stop()
         {
@@ -38,9 +39,9 @@ namespace CBRemoteControl.Server.Services
         #endregion
 
         #region 私有方法
-        private void Server(NetMQContext context)
+        private void Server()
         {
-            using (NetMQSocket serverSocket = context.CreateResponseSocket())
+            using (NetMQSocket serverSocket = _Context.CreateResponseSocket())
             {
                 serverSocket.Bind(ConfigManager.Instance.LocalBind);
 
