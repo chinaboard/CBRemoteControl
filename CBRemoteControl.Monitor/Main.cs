@@ -35,17 +35,10 @@ namespace CBRemoteControl.Monitor
         private void listView_DoubleClick(object sender, EventArgs e)
         {
             if (this.listView.SelectedItems.Count == 0)
-            {
                 return;
-            }
-            try
-            {
-                var info = this.listView.SelectedItems[0].Tag as RemoteInfo;
-                SetRemoteInfo(info);
-            }
-            catch
-            {
-            }
+            var info = this.listView.SelectedItems[0].Tag as RemoteInfo;
+            SetRemoteInfo(info);
+
         }
         private void Main_Resize(object sender, EventArgs e)
         {
@@ -120,8 +113,7 @@ namespace CBRemoteControl.Monitor
         {
             if (bitmapData == null)
                 return;
-            var bmp = BitmapCommon.Byte2Bitmap(bitmapData);
-            this.pictureBox.Image = bmp;
+            this.pictureBox.Image = BitmapCommon.Byte2Bitmap(bitmapData);
         }
         #endregion
     }
