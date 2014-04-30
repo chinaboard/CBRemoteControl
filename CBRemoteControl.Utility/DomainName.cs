@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 
 namespace CBRemoteControl.Utility
 {
@@ -15,18 +16,23 @@ namespace CBRemoteControl.Utility
         /// <returns>IP地址</returns>
         public static string Domain2IP(string domain)
         {
-            try
+            for (int i = 0; i < 5; i++)
             {
-                IPAddress ip;
-                if (IPAddress.TryParse(domain, out ip))
-                    return ip.ToString();
-                else
-                    return Dns.GetHostEntry(domain).AddressList[0].ToString();
+                try
+                {
+                    IPAddress ip;
+                    if (IPAddress.TryParse(domain, out ip))
+                        return ip.ToString();
+                    else
+                        return Dns.GetHostEntry(domain).AddressList[0].ToString();
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(5000);
+                    continue;
+                }
             }
-            catch (Exception)
-            {
-                throw new Exception("IP Address Error");
-            }
+            throw new Exception("IP Address Error");
         }
     }
 }

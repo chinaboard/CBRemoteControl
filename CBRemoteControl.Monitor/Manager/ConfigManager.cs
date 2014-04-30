@@ -9,16 +9,34 @@ namespace CBRemoteControl.Monitor.Manager
 {
     public class ConfigManager
     {
+        #region 字段
+        private string _ServiceBind;
+        #endregion
+
+        #region 属性
         public static ConfigManager Instance;
         public int HeartBeat { get { return int.Parse(GetAppConfig("HeartBeat")); } }
         public string ServiceDomain { get { return GetAppConfig("ServiceDomain"); } }
         public string ServicePort { get { return GetAppConfig("ServicePort"); } }
-        public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort); } }
+        public string ServiceBind
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(_ServiceBind))
+                    _ServiceBind = String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort);
+                return _ServiceBind;
+            }
+        }
+        #endregion
+
+        #region 构造方法
         static ConfigManager()
         {
             Instance = new ConfigManager();
         }
+        #endregion
 
+        #region 私有方法
         private string GetAppConfig(string strKey)
         {
             foreach (string key in ConfigurationManager.AppSettings)
@@ -50,5 +68,6 @@ namespace CBRemoteControl.Monitor.Manager
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
+        #endregion
     }
 }

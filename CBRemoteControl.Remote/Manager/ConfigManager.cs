@@ -6,13 +6,25 @@ namespace CBRemoteControl.Remote.Manager
 {
     public class ConfigManager
     {
+        #region 字段
+        private string _ServiceBind;
+        #endregion
+
         #region 属性
         public static ConfigManager Instance;
         public string MachineName { get { return GetAppConfig("MachineName"); } }
         public int HeartBeat { get { return int.Parse(GetAppConfig("HeartBeat")); } }
         public string ServiceDomain { get { return GetAppConfig("ServiceDomain"); } }
         public string ServicePort { get { return GetAppConfig("ServicePort"); } }
-        public string ServiceBind { get { return String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort); } }
+        public string ServiceBind
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(_ServiceBind))
+                    _ServiceBind = String.Format("tcp://{0}:{1}", Utility.DomainName.Domain2IP(ServiceDomain), ServicePort);
+                return _ServiceBind;
+            }
+        }
         public RemoteInfo RemoteData { get { return new RemoteInfo(MachineGuid, MachineName); } }
         public string MachineGuid
         {
